@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contributing to the documentation &mdash; GW Analysis Tools  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Writing Custom Docker Images: Example Workflows" href="customDockerImage.html" />
+    <link rel="prev" title="Tutorials" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            GW Analysis Tools
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome to GW Analysis Tools’s documentation!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation/installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Contributing to the documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contributing-to-the-project">Contributing to the project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="customDockerImage.html">Writing Custom Docker Images: Example Workflows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="jupyterDocker.html">Dockerfiles with Jupyter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="minimalWorkingExampleIMRPhenomD.html">Running with docker: two minimal working examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="singularity.html">Running with Singularity</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">GW Analysis Tools</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Tutorials</a></li>
+      <li class="breadcrumb-item active">Contributing to the documentation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/tutorials/contributing.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="contributing-to-the-documentation">
+<h1>Contributing to the documentation<a class="headerlink" href="#contributing-to-the-documentation" title="Link to this heading"></a></h1>
+<p>To documentation is generated with sphinx.
+The source code to these webpages is a set of markdown documents that can be found under
+<code class="docutils literal notranslate"><span class="pre">gw_analysis_tools/docs_sphinx</span></code>
+(on the github repo, they are <a class="reference external" href="https://github.com/scottperkins/gw_analysis_tools/tree/master/docs_sphinx">here</a>).
+If you ever have an issue you had to hack your way through (e.g. getting the code to work on windows),
+please consider adding your solution to the documentation!</p>
+</section>
+<section id="contributing-to-the-project">
+<h1>Contributing to the project<a class="headerlink" href="#contributing-to-the-project" title="Link to this heading"></a></h1>
+<p>Contributions to this source code would be very much appreciated (both corrections or additions)!
+We use branches and pull requests to facilitate this kind of work, so please follow the follow steps for contributing to this project:</p>
+<ol class="arabic simple" start="0">
+<li><p>Optional - For corrections, file a bug report first so people know someone’s working on it and are aware of the issue</p></li>
+<li><p>Pull the latest code from the repository (probably from the master branch):</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>pull
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Create a new branch and make it available on the online repository with the following command (where &lt;feature-branch&gt; can be anything you’d like to call it)</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>&lt;feature-branch&gt;
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>&lt;feature-branch&gt;
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Next, make your corrections to the code</p></li>
+<li><p>Stage the changes</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>add<span class="w"> </span>&lt;modified/added<span class="w"> </span>files&gt;
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"A very clear and helpful message"</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>Push the changes to the online repository</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>&lt;feature-branch&gt;
+</pre></div>
+</div>
+<ol class="arabic simple" start="6">
+<li><p>Make a pull request through the online GUI. This will start a discuss and verification process before the code is eventually merged by a moderator.</p></li>
+</ol>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Tutorials" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="customDockerImage.html" class="btn btn-neutral float-right" title="Writing Custom Docker Images: Example Workflows" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Scott Ellis Perkins.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

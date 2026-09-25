@@ -1,0 +1,263 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IMRPhenomD &mdash; GW Analysis Tools  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="IMRPhenomD_NRT" href="IMRPhenomD_NRT.html" />
+    <link rel="prev" title="EA_IMRPhenomD_NRT" href="EA_IMRPhenomD_NRT.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            GW Analysis Tools
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome to GW Analysis Tools’s documentation!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="D_Z_Config.html">D_Z_Config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="D_Z_Config_modified_dispersion.html">D_Z_Config_modified_dispersion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EA_IMRPhenomD_NRT.html">EA_IMRPhenomD_NRT</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">IMRPhenomD</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv417lambda_num_params"><code class="docutils literal notranslate"><span class="pre">lambda_num_params</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="IMRPhenomD_NRT.html">IMRPhenomD_NRT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IMRPhenomP.html">IMRPhenomP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IMRPhenomP_NRT.html">IMRPhenomP_NRT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="QNM_data.html">QNM_data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TaylorT2.html">TaylorT2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autocorrelation.html">autocorrelation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autocorrelation_cuda.html">autocorrelation_cuda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="detector_util.html">detector_util</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fisher.html">fisher</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gIMRPhenomD.html">gIMRPhenomD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gIMRPhenomP.html">gIMRPhenomP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gwatpy_wrapping.html">gwatpy_wrapping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="io_util.html">io_util</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mc_reject.html">mc_reject</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mcmc_gw.html">mcmc_gw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mcmc_gw_extended.html">mcmc_gw_extended</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mcmc_io_util.html">mcmc_io_util</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mcmc_sampler.html">mcmc_sampler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mcmc_sampler_internals.html">mcmc_sampler_internals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ortho_basis.html">ortho_basis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pn_waveform_util.html">pn_waveform_util</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ppE_IMRPhenomD.html">ppE_IMRPhenomD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ppE_IMRPhenomD_NRT.html">ppE_IMRPhenomD_NRT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ppE_IMRPhenomP.html">ppE_IMRPhenomP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ppE_utilities.html">ppE_utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="standardPriorLibrary.html">standardPriorLibrary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="threadPool.html">threadPool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="util.html">util</a></li>
+<li class="toctree-l2"><a class="reference internal" href="waveform_generator.html">waveform_generator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="waveform_generator_C.html">waveform_generator_C</a></li>
+<li class="toctree-l2"><a class="reference internal" href="waveform_util.html">waveform_util</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">GW Analysis Tools</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">API</a></li>
+      <li class="breadcrumb-item active">IMRPhenomD</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/IMRPhenomD.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="imrphenomd">
+<span id="api-imrphenomd"></span><h1>IMRPhenomD<a class="headerlink" href="#imrphenomd" title="Link to this heading"></a></h1>
+<p>Header file for utilities ‍/ /*! </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-variables">Variables</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv417lambda_num_params">
+<span id="_CPPv317lambda_num_params"></span><span id="_CPPv217lambda_num_params"></span><span id="lambda_num_params__doubleCAA"></span><span class="target" id="IMRPhenomD_8h_1ab4244995783dcaa1f99791db55aeb118"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">lambda_num_params</span></span></span><span class="p"><span class="pre">[</span></span><span class="m"><span class="pre">19</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">[</span></span><span class="m"><span class="pre">11</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#_CPPv417lambda_num_params" title="Link to this definition"></a><br /></dt>
+<dd><p>Structure to facilitate IMRPhenomD parameter transfers ‍/</p>
+<p>template &lt;class T&gt; struct lambda_parameters { <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">T</span><span class="w"> </span><span class="n">rho</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+<span class="n">T</span><span class="w"> </span><span class="n">v2</span><span class="p">;</span>
+<span class="n">T</span><span class="w"> </span><span class="n">gamma</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+<span class="n">T</span><span class="w"> </span><span class="n">sigma</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
+<span class="n">T</span><span class="w"> </span><span class="n">beta</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
+<span class="n">T</span><span class="w"> </span><span class="n">alpha</span><span class="p">[</span><span class="mi">7</span><span class="p">];</span>
+</pre></div>
+</div>
+ };</p>
+<p>########################################################################## function declarations template &lt;class T&gt; class IMRPhenomD { public:</p>
+<p>virtual ~IMRPhenomD() = default;</p>
+<p><p>virtual void fisher_calculation_sky_averaged(double *frequency,</p>
+<p>int length,</p>
+<p>double *parameters,</p>
+<p>gen_params *parameters,</p>
+<p>double **amplitude_deriv,</p>
+<p>double **phase_deriv,</p>
+<p>double *amplitude,</p>
+<p>int *amp_tapes,</p>
+<p>int *phase_tapes</p>
+<p>); virtual void change_parameter_basis(T *old_param,</p>
+<p>T *new_param,</p>
+<p>bool sky_average</p>
+<p>); virtual void construct_amplitude_derivative(double *frequencies, int length, int dimension, double **amplitude_derivative,</p>
+<a class="reference internal" href="util.html#structsource__parameters"><span class="std std-ref">source_parameters&lt;double&gt;</span></a> *input_params, int *tapes=NULL ); virtual void construct_phase_derivative(double *frequencies, int length, int dimension, double **phase_derivative, <a class="reference internal" href="util.html#structsource__parameters"><span class="std std-ref">source_parameters&lt;double&gt;</span></a> *input_params, int *tapes=NULL ); virtual void amplitude_tape(source_parameters&lt;double&gt; *input_params, int *tape);</p>
+<p>virtual void phase_tape(source_parameters&lt;double&gt; *input_params, int *tape);</p>
+<p>virtual int construct_waveform(T *frequencies, int length, std::complex&lt;T&gt; *waveform, source_parameters&lt;T&gt; *params);</p>
+<p><p>virtual std::complex&lt;T&gt; construct_waveform(T frequency,                 \ilinebr&lt;br&gt;</p>
+<p>source_parameters&lt;T&gt; *params );</p>
+</p>
+<p>virtual int construct_amplitude(T *frequencies, int length, T *amplitude, source_parameters&lt;T&gt; *params);</p>
+<p>virtual T construct_amplitude(T frequency,  source_parameters&lt;T&gt; *params);</p>
+<p>virtual int construct_phase(T *frequencies, int length, T *phase, source_parameters&lt;T&gt; *params);</p>
+<p><p>virtual T build_amp(T f,</p>
+<p>lambda_parameters&lt;T&gt; *lambda,</p>
+<p>source_parameters&lt;T&gt; *params,</p>
+<p>useful_powers&lt;T&gt; *pows,</p>
+<p>T *amp_coeff,</p>
+<p>T *deltas);</p>
+</p>
+<p><p>virtual T build_phase(T f,</p>
+<p>lambda_parameters&lt;T&gt; *lambda,</p>
+<p>source_parameters&lt;T&gt; *params,</p>
+<p>useful_powers&lt;T&gt; *pows,</p>
+<p>T *phase_coeff);</p>
+</p>
+<p>virtual T assign_lambda_param_element(source_parameters&lt;T&gt; *source_param,int i);</p>
+<p>virtual void assign_lambda_param(source_parameters&lt;T&gt; *source_param, lambda_parameters&lt;T&gt; *lambda);</p>
+<p>virtual void precalc_powers_ins(T f, T M, useful_powers&lt;T&gt; *Mf_pows);</p>
+<p>virtual void precalc_powers_PI( useful_powers&lt;T&gt; *PI_pows);</p>
+<p>virtual void precalc_powers_ins_phase(T f, T M, useful_powers&lt;T&gt; *Mf_pows);</p>
+<p>virtual void precalc_powers_ins_amp(T f, T M, useful_powers&lt;T&gt; *Mf_pows);</p>
+<p>virtual void assign_pn_amplitude_coeff(source_parameters&lt;T&gt; *source_param, T *coeff);</p>
+<p>virtual void assign_static_pn_phase_coeff(source_parameters&lt;T&gt; *source_param, T *coeff);</p>
+<p><p>virtual void assign_nonstatic_pn_phase_coeff(source_parameters&lt;T&gt; *source_param,</p>
+<p>T *coeff,</p>
+<p>T f);</p>
+</p>
+<p><p>virtual void assign_nonstatic_pn_phase_coeff_deriv(source_parameters&lt;T&gt; *source_param,</p>
+<p>T *Dcoeff,</p>
+<p>T f); virtual void post_merger_variables(source_parameters&lt;T&gt; *source_param);</p>
+</p>
+<p>virtual void calc_fring( source_parameters&lt;T&gt; *source_params); virtual void calc_fdamp( source_parameters&lt;T&gt; *source_params); virtual void _calc_fring( source_parameters&lt;T&gt; *source_params); virtual void _calc_fdamp( source_parameters&lt;T&gt; *source_params); virtual T final_spin(source_parameters&lt;T&gt; *params); virtual T FinalSpin0815_s(T eta, T s); virtual T FinalSpin0815(T eta, T chi1,T chi2); virtual T EradRational0815_s(T eta, T s); virtual T EradRational0815(T eta, T chi1,T chi2);</p>
+<p>virtual T fpeak(source_parameters&lt;T&gt; *params, lambda_parameters&lt;T&gt; *lambda);</p>
+<p><p>virtual T amp_ins(T f, source_parameters&lt;T&gt; *param, T *pn_coeff,</p>
+<p>lambda_parameters&lt;T&gt; *lambda,useful_powers&lt;T&gt; *pow);</p>
+</p>
+<p>virtual T Damp_ins(T f, source_parameters&lt;T&gt; *param, T *pn_coeff, lambda_parameters&lt;T&gt; *lambda);</p>
+<p><p>virtual T phase_ins(T f, source_parameters&lt;T&gt; *param, T *pn_coeff,</p>
+<p>lambda_parameters&lt;T&gt; *lambda, useful_powers&lt;T&gt; *pow);</p>
+</p>
+<p>virtual T Dphase_ins(T f, source_parameters&lt;T&gt; *param, T *pn_coeff, lambda_parameters&lt;T&gt; *lambda);</p>
+<p>virtual T amp_mr(T f, source_parameters&lt;T&gt; *param, lambda_parameters&lt;T&gt; *lambda);</p>
+<p>virtual T phase_mr(T f, source_parameters&lt;T&gt; *param, lambda_parameters&lt;T&gt; *lambda);</p>
+<p>virtual T Damp_mr(T f, source_parameters&lt;T&gt; *param, lambda_parameters&lt;T&gt; *lambda);</p>
+<p>virtual T Dphase_mr(T f, source_parameters&lt;T&gt; *param, lambda_parameters&lt;T&gt; *lambda);</p>
+<p>virtual T amp_int(T f, source_parameters&lt;T&gt; *param, lambda_parameters&lt;T&gt; *lambda, T *deltas);</p>
+<p>virtual T phase_int(T f, source_parameters&lt;T&gt; *param, lambda_parameters&lt;T&gt; *lambda );</p>
+<p>virtual T Dphase_int(T f, source_parameters&lt;T&gt; *param, lambda_parameters&lt;T&gt; *lambda);</p>
+<p><p>virtual void phase_connection_coefficients(source_parameters&lt;T&gt; *param,</p>
+<p>lambda_parameters&lt;T&gt; *lambda,</p>
+<p>T *pn_coeffs);</p>
+</p>
+<p>virtual T calculate_beta1(source_parameters&lt;T&gt; *param, lambda_parameters&lt;T&gt; *lambda, T *pn_coeffs);</p>
+<p>virtual T calculate_beta0(source_parameters&lt;T&gt; *param, lambda_parameters&lt;T&gt; *lambda, T *pn_coeffs);</p>
+<p>virtual T calculate_alpha1(source_parameters&lt;T&gt; *param, lambda_parameters&lt;T&gt; *lambda);</p>
+<p>virtual T calculate_alpha0(source_parameters&lt;T&gt; *param, lambda_parameters&lt;T&gt; *lambda);</p>
+<p><p>virtual void amp_connection_coeffs(source_parameters&lt;T&gt; *param,</p>
+<p>lambda_parameters&lt;T&gt; *lambda,</p>
+<p>T *pn_coeffs,</p>
+<p>T *coeffs);</p>
+</p>
+<p><p>virtual T calculate_delta_parameter_0(T f1,T f2,T f3,T v1,</p>
+<p>T v2,T v3,T dd1,T dd3,T M); virtual T calculate_delta_parameter_1(T f1,T f2,T f3,T v1,</p>
+<p>T v2,T v3,T dd1,T dd3,T M); virtual T calculate_delta_parameter_2(T f1,T f2,T f3,T v1,</p>
+<p>T v2,T v3,T dd1,T dd3,T M); virtual T calculate_delta_parameter_3(T f1,T f2,T f3,T v1,</p>
+<p>T v2,T v3,T dd1,T dd3,T M); virtual T calculate_delta_parameter_4(T f1,T f2,T f3,T v1,</p>
+<p>T v2,T v3,T dd1,T dd3,T M); }; ###########################################################################</p>
+</p>
+<p>/*!Numerically calibrated parameters from arXiv:1508.07253 see the table in the data directory for labeled version from lalsuite </p>
+</dd></dl>
+
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="EA_IMRPhenomD_NRT.html" class="btn btn-neutral float-left" title="EA_IMRPhenomD_NRT" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="IMRPhenomD_NRT.html" class="btn btn-neutral float-right" title="IMRPhenomD_NRT" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Scott Ellis Perkins.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

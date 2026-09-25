@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dockerfiles with Jupyter &mdash; GW Analysis Tools  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Running with docker: two minimal working examples" href="minimalWorkingExampleIMRPhenomD.html" />
+    <link rel="prev" title="Writing Custom Docker Images: Example Workflows" href="customDockerImage.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            GW Analysis Tools
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome to GW Analysis Tools’s documentation!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation/installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="contributing.html">Contributing to the documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#contributing-to-the-project">Contributing to the project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="customDockerImage.html">Writing Custom Docker Images: Example Workflows</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Dockerfiles with Jupyter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#running-container">Running container</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#logging-in">Logging in</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="minimalWorkingExampleIMRPhenomD.html">Running with docker: two minimal working examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="singularity.html">Running with Singularity</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">GW Analysis Tools</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Tutorials</a></li>
+      <li class="breadcrumb-item active">Dockerfiles with Jupyter</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/tutorials/jupyterDocker.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="dockerfiles-with-jupyter">
+<h1>Dockerfiles with Jupyter<a class="headerlink" href="#dockerfiles-with-jupyter" title="Link to this heading"></a></h1>
+<p>Hosting jupyter servers in Docker containers can be extremely useful, ~~as this typically doesn’t involve logging into the container at all,~~<a class="footnote-reference brackets" href="#id2" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a> and you can just connect to your server in a browser.</p>
+<p>A typical docker file for this purpose looks like</p>
+<div class="highlight-docker notranslate"><div class="highlight"><pre><span></span><span class="k">FROM</span><span class="w"> </span><span class="s">debian:latest</span><span class="w"> </span><span class="c"># or whatever base image you want</span>
+
+<span class="k">RUN</span><span class="w"> </span>pip3<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
+<span class="k">RUN</span><span class="w"> </span>pip3<span class="w"> </span>install<span class="w"> </span>jupyter<span class="w"> </span>jupyterlab<span class="w"> </span>#plus<span class="w"> </span>whatever<span class="w"> </span><span class="k">else</span>
+
+<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">"jupyter-lab"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--no-browser"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--allow-root"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--ip=0.0.0.0"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--port=8989"</span><span class="p">]</span><span class="w"> </span>#<span class="w"> </span>The<span class="w"> </span>port<span class="w"> </span>doesn<span class="err">'</span>t<span class="w"> </span>have<span class="w"> </span>to<span class="w"> </span>be<span class="w"> </span>the<span class="w"> </span>same,<span class="w"> </span>just<span class="w"> </span>some<span class="w"> </span>random<span class="w"> </span>port<span class="w"> </span>not<span class="w"> </span><span class="k">in</span><span class="w"> </span>use
+</pre></div>
+</div>
+<section id="running-container">
+<h2>Running container<a class="headerlink" href="#running-container" title="Link to this heading"></a></h2>
+<p>Now, with image in hand, navigate to the directory of interest and run the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--rm<span class="w"> </span>-p<span class="w"> </span>&lt;port-ID&gt;:&lt;port-ID&gt;<span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span>PWD<span class="k">)</span>:/container/dir/path<span class="w"> </span>&lt;image-ID&gt;
+</pre></div>
+</div>
+<p>where the &lt;port-ID&gt; matches the port used in the image (at least the second one) and the “/container/dir/path” directory is whatever you want to call it (directory inside the container). The image (&lt;image-ID&gt;) is obviously the image you want to run (e.g. scottperkins/gwat.jupyter)</p>
+</section>
+<section id="logging-in">
+<h2>Logging in<a class="headerlink" href="#logging-in" title="Link to this heading"></a></h2>
+<p>For now, you have to log into the container with</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>&lt;container-id&gt;<span class="w"> </span>bash
+</pre></div>
+</div>
+<p>Then, inside the container, run</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>jupyter<span class="w"> </span>server<span class="w"> </span>list
+</pre></div>
+</div>
+<p>Go to localhost:&lt;port-ID&gt; in a browser and copy the token from the docker container to log in.</p>
+<p>You’re in! Now you can exit out of the interactive session of the container if you want.</p>
+</section>
+</section>
+<hr class="footnotes docutils" />
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id2" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>Can’t figure this out right now</p>
+</aside>
+</aside>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="customDockerImage.html" class="btn btn-neutral float-left" title="Writing Custom Docker Images: Example Workflows" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="minimalWorkingExampleIMRPhenomD.html" class="btn btn-neutral float-right" title="Running with docker: two minimal working examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Scott Ellis Perkins.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

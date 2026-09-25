@@ -1,0 +1,299 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>threadPool &mdash; GW Analysis Tools  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="util" href="util.html" />
+    <link rel="prev" title="standardPriorLibrary" href="standardPriorLibrary.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            GW Analysis Tools
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome to GW Analysis Tools’s documentation!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="D_Z_Config.html">D_Z_Config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="D_Z_Config_modified_dispersion.html">D_Z_Config_modified_dispersion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EA_IMRPhenomD_NRT.html">EA_IMRPhenomD_NRT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IMRPhenomD.html">IMRPhenomD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IMRPhenomD_NRT.html">IMRPhenomD_NRT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IMRPhenomP.html">IMRPhenomP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IMRPhenomP_NRT.html">IMRPhenomP_NRT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="QNM_data.html">QNM_data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TaylorT2.html">TaylorT2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autocorrelation.html">autocorrelation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autocorrelation_cuda.html">autocorrelation_cuda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="detector_util.html">detector_util</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fisher.html">fisher</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gIMRPhenomD.html">gIMRPhenomD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gIMRPhenomP.html">gIMRPhenomP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gwatpy_wrapping.html">gwatpy_wrapping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="io_util.html">io_util</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mc_reject.html">mc_reject</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mcmc_gw.html">mcmc_gw</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mcmc_gw_extended.html">mcmc_gw_extended</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mcmc_io_util.html">mcmc_io_util</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mcmc_sampler.html">mcmc_sampler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mcmc_sampler_internals.html">mcmc_sampler_internals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ortho_basis.html">ortho_basis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pn_waveform_util.html">pn_waveform_util</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ppE_IMRPhenomD.html">ppE_IMRPhenomD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ppE_IMRPhenomD_NRT.html">ppE_IMRPhenomD_NRT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ppE_IMRPhenomP.html">ppE_IMRPhenomP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ppE_utilities.html">ppE_utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="standardPriorLibrary.html">standardPriorLibrary</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">threadPool</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4I0E12default_comp"><code class="docutils literal notranslate"><span class="pre">default_comp</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N12default_compclE7jobtype7jobtype"><code class="docutils literal notranslate"><span class="pre">operator()()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4I00E10threadPool"><code class="docutils literal notranslate"><span class="pre">threadPool</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N10threadPool10threadPoolENSt6size_tENSt8functionIFvi7jobtypeEEE"><code class="docutils literal notranslate"><span class="pre">threadPool()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N10threadPoolD0Ev"><code class="docutils literal notranslate"><span class="pre">~threadPool()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N10threadPool7enqueueE7jobtype"><code class="docutils literal notranslate"><span class="pre">enqueue()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N10threadPool15get_num_threadsEv"><code class="docutils literal notranslate"><span class="pre">get_num_threads()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N10threadPool16get_queue_lengthEv"><code class="docutils literal notranslate"><span class="pre">get_queue_length()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N10threadPool5startENSt6size_tE"><code class="docutils literal notranslate"><span class="pre">start()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N10threadPool4stopEv"><code class="docutils literal notranslate"><span class="pre">stop()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N10threadPool7ThreadsE"><code class="docutils literal notranslate"><span class="pre">Threads</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N10threadPool8EventVarE"><code class="docutils literal notranslate"><span class="pre">EventVar</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N10threadPool10EventMutexE"><code class="docutils literal notranslate"><span class="pre">EventMutex</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N10threadPool8stoppingE"><code class="docutils literal notranslate"><span class="pre">stopping</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N10threadPool19numThreads_internalE"><code class="docutils literal notranslate"><span class="pre">numThreads_internal</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N10threadPool16work_fn_internalE"><code class="docutils literal notranslate"><span class="pre">work_fn_internal</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N10threadPool5TasksE"><code class="docutils literal notranslate"><span class="pre">Tasks</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="util.html">util</a></li>
+<li class="toctree-l2"><a class="reference internal" href="waveform_generator.html">waveform_generator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="waveform_generator_C.html">waveform_generator_C</a></li>
+<li class="toctree-l2"><a class="reference internal" href="waveform_util.html">waveform_util</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">GW Analysis Tools</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">API</a></li>
+      <li class="breadcrumb-item active">threadPool</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/threadPool.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="threadpool">
+<span id="api-threadpool"></span><h1>threadPool<a class="headerlink" href="#threadpool" title="Link to this heading"></a></h1>
+<p>Header file (declarations and definitions because of template functions) for the implementation of a generic thread pool </p>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I0E12default_comp">
+<span id="_CPPv3I0E12default_comp"></span><span id="_CPPv2I0E12default_comp"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">jobtype</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classdefault__comp"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">default_comp</span></span></span><a class="headerlink" href="#_CPPv4I0E12default_comp" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;threadPool.h&gt;</em></div>
+<p>Default comparator for priority_queue in <a class="reference internal" href="#classthreadPool"><span class="std std-ref">threadPool</span></a> – no comparison. </p>
+<p>First in first out, not sorting </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N12default_compclE7jobtype7jobtype">
+<span id="_CPPv3N12default_compclE7jobtype7jobtype"></span><span id="_CPPv2N12default_compclE7jobtype7jobtype"></span><span id="default_comp::call-operator__jobtype.jobtype"></span><span class="target" id="classdefault__comp_1a196f2629bf071bb72fcbbd2454ca628e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">()</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0E12default_comp" title="default_comp::jobtype"><span class="n"><span class="pre">jobtype</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">j</span></span>, <a class="reference internal" href="#_CPPv4I0E12default_comp" title="default_comp::jobtype"><span class="n"><span class="pre">jobtype</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">k</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N12default_compclE7jobtype7jobtype" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I00E10threadPool">
+<span id="_CPPv3I00E10threadPool"></span><span id="_CPPv2I00E10threadPool"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">jobtype</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">comparator</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0E12default_comp" title="default_comp"><span class="n"><span class="pre">default_comp</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I00E10threadPool" title="threadPool::jobtype"><span class="n"><span class="pre">jobtype</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classthreadPool"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">threadPool</span></span></span><a class="headerlink" href="#_CPPv4I00E10threadPool" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;threadPool.h&gt;</em></div>
+<p>Class for creating a pool of threads to asynchronously distribute work. </p>
+<p>Template parameters:</p>
+<p>jobtype defines a structure or class that represents a job or task</p>
+<p>comparator defines how to compare jobs for sorting the list</p>
+<p>Default options correspond to jobs being defined by an integer job_id, and no sorting of the list (first in first out) </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10threadPool10threadPoolENSt6size_tENSt8functionIFvi7jobtypeEEE">
+<span id="_CPPv3N10threadPool10threadPoolENSt6size_tENSt8functionIFvi7jobtypeEEE"></span><span id="_CPPv2N10threadPool10threadPoolENSt6size_tENSt8functionIFvi7jobtypeEEE"></span><span class="target" id="classthreadPool_1a9dec84c42aa3c3beee252f338ddc2d39"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">threadPool</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">numThreads</span></span>, <a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">void</span></span><span class="p"><span class="pre">(</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I00E10threadPool" title="threadPool::jobtype"><span class="n"><span class="pre">jobtype</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">work_fn</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10threadPool10threadPoolENSt6size_tENSt8functionIFvi7jobtypeEEE" title="Link to this definition"></a><br /></dt>
+<dd><p>Constructor – starts thread pool running. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10threadPoolD0Ev">
+<span id="_CPPv3N10threadPoolD0Ev"></span><span id="_CPPv2N10threadPoolD0Ev"></span><span id="threadPool::~threadPool"></span><span class="target" id="classthreadPool_1abf95d0e451e758582920dc8ddf8a0602"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~threadPool</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10threadPoolD0Ev" title="Link to this definition"></a><br /></dt>
+<dd><p>Destructor – stops threads. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10threadPool7enqueueE7jobtype">
+<span id="_CPPv3N10threadPool7enqueueE7jobtype"></span><span id="_CPPv2N10threadPool7enqueueE7jobtype"></span><span id="threadPool::enqueue__jobtype"></span><span class="target" id="classthreadPool_1a8032717dcc11834427f874bc1efd6376"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">enqueue</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I00E10threadPool" title="threadPool::jobtype"><span class="n"><span class="pre">jobtype</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">job_id</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10threadPool7enqueueE7jobtype" title="Link to this definition"></a><br /></dt>
+<dd><p>Places jobs in queue to wait for scheduling. </p>
+<p>job_id is sorted if a comparator is provided </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10threadPool15get_num_threadsEv">
+<span id="_CPPv3N10threadPool15get_num_threadsEv"></span><span id="_CPPv2N10threadPool15get_num_threadsEv"></span><span id="threadPool::get_num_threads"></span><span class="target" id="classthreadPool_1acbbf74c33481a258439be4d305f5f429"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">get_num_threads</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10threadPool15get_num_threadsEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Get the number of threads being used by the thread pool. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10threadPool16get_queue_lengthEv">
+<span id="_CPPv3N10threadPool16get_queue_lengthEv"></span><span id="_CPPv2N10threadPool16get_queue_lengthEv"></span><span id="threadPool::get_queue_length"></span><span class="target" id="classthreadPool_1a12646e379d9eef439e3a779eda483a4a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">get_queue_length</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10threadPool16get_queue_lengthEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Get the current length of the job queue. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-functions">Private Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10threadPool5startENSt6size_tE">
+<span id="_CPPv3N10threadPool5startENSt6size_tE"></span><span id="_CPPv2N10threadPool5startENSt6size_tE"></span><span id="threadPool::start__std::s"></span><span class="target" id="classthreadPool_1aff8fe384709e429787e9f19e958144f5"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">start</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">numThreads</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10threadPool5startENSt6size_tE" title="Link to this definition"></a><br /></dt>
+<dd><p>Starts thread pool – launches each thread, which continually check for work. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10threadPool4stopEv">
+<span id="_CPPv3N10threadPool4stopEv"></span><span id="_CPPv2N10threadPool4stopEv"></span><span id="threadPool::stop"></span><span class="target" id="classthreadPool_1a2d479655e85c6e3edd343f8c0f37b30e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">stop</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N10threadPool4stopEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Stops thread pool. </p>
+<p>Waits for all threads to end and joins them</p>
+<p>Finishes the thread pool before ending </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-members">Private Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10threadPool7ThreadsE">
+<span id="_CPPv3N10threadPool7ThreadsE"></span><span id="_CPPv2N10threadPool7ThreadsE"></span><span id="threadPool::Threads__std::vector:std::thread:"></span><span class="target" id="classthreadPool_1aa1acb9c38ae408412148a6cd2944e901"></span><a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">thread</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Threads</span></span></span><a class="headerlink" href="#_CPPv4N10threadPool7ThreadsE" title="Link to this definition"></a><br /></dt>
+<dd><p>Vector for thread ids </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10threadPool8EventVarE">
+<span id="_CPPv3N10threadPool8EventVarE"></span><span id="_CPPv2N10threadPool8EventVarE"></span><span id="threadPool::EventVar__std::condition_variable"></span><span class="target" id="classthreadPool_1a4ab940315b654d4358a347695860211f"></span><a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">condition_variable</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EventVar</span></span></span><a class="headerlink" href="#_CPPv4N10threadPool8EventVarE" title="Link to this definition"></a><br /></dt>
+<dd><p>Condition Variable </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10threadPool10EventMutexE">
+<span id="_CPPv3N10threadPool10EventMutexE"></span><span id="_CPPv2N10threadPool10EventMutexE"></span><span id="threadPool::EventMutex__std::mutex"></span><span class="target" id="classthreadPool_1a4e7610c1f953345fed3a8f67a42bd2a3"></span><a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">mutex</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EventMutex</span></span></span><a class="headerlink" href="#_CPPv4N10threadPool10EventMutexE" title="Link to this definition"></a><br /></dt>
+<dd><p>Lock to prevent memory races </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10threadPool8stoppingE">
+<span id="_CPPv3N10threadPool8stoppingE"></span><span id="_CPPv2N10threadPool8stoppingE"></span><span id="threadPool::stopping__b"></span><span class="target" id="classthreadPool_1a5616baffb9b54b8964812fd4660e31a1"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">stopping</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><a class="headerlink" href="#_CPPv4N10threadPool8stoppingE" title="Link to this definition"></a><br /></dt>
+<dd><p>Boolean stop condition </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10threadPool19numThreads_internalE">
+<span id="_CPPv3N10threadPool19numThreads_internalE"></span><span id="_CPPv2N10threadPool19numThreads_internalE"></span><span id="threadPool::numThreads_internal__i"></span><span class="target" id="classthreadPool_1ab5c2fe4faa757c5fadf78f8d96f81c02"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">numThreads_internal</span></span></span><a class="headerlink" href="#_CPPv4N10threadPool19numThreads_internalE" title="Link to this definition"></a><br /></dt>
+<dd><p>Number of threads in pool </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10threadPool16work_fn_internalE">
+<span id="_CPPv3N10threadPool16work_fn_internalE"></span><span id="_CPPv2N10threadPool16work_fn_internalE"></span><span class="target" id="classthreadPool_1a803c8b5fc5ba8c3d0b3d52508f452a84"></span><a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">void</span></span><span class="p"><span class="pre">(</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I00E10threadPool" title="threadPool::jobtype"><span class="n"><span class="pre">jobtype</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">work_fn_internal</span></span></span><a class="headerlink" href="#_CPPv4N10threadPool16work_fn_internalE" title="Link to this definition"></a><br /></dt>
+<dd><p>Function for each thread to perform – Takes arguments thread_id and jobtype job </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N10threadPool5TasksE">
+<span id="_CPPv3N10threadPool5TasksE"></span><span id="_CPPv2N10threadPool5TasksE"></span><span id="threadPool::Tasks__std::priority_queue:jobtype.std::vector:jobtype:.comparator:"></span><span class="target" id="classthreadPool_1a50b46d578be68f685fcd32711b035ab7"></span><a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">priority_queue</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I00E10threadPool" title="threadPool::jobtype"><span class="n"><span class="pre">jobtype</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I00E10threadPool" title="threadPool::jobtype"><span class="n"><span class="pre">jobtype</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I00E10threadPool" title="threadPool::comparator"><span class="n"><span class="pre">comparator</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Tasks</span></span></span><a class="headerlink" href="#_CPPv4N10threadPool5TasksE" title="Link to this definition"></a><br /></dt>
+<dd><p>Queue of jobs </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="standardPriorLibrary.html" class="btn btn-neutral float-left" title="standardPriorLibrary" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="util.html" class="btn btn-neutral float-right" title="util" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Scott Ellis Perkins.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

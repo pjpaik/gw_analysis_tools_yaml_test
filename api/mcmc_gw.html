@@ -1,0 +1,914 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>mcmc_gw &mdash; GW Analysis Tools  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="mcmc_gw_extended" href="mcmc_gw_extended.html" />
+    <link rel="prev" title="mc_reject" href="mc_reject.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            GW Analysis Tools
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Welcome to GW Analysis Tools’s documentation!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="D_Z_Config.html">D_Z_Config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="D_Z_Config_modified_dispersion.html">D_Z_Config_modified_dispersion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EA_IMRPhenomD_NRT.html">EA_IMRPhenomD_NRT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IMRPhenomD.html">IMRPhenomD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IMRPhenomD_NRT.html">IMRPhenomD_NRT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IMRPhenomP.html">IMRPhenomP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IMRPhenomP_NRT.html">IMRPhenomP_NRT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="QNM_data.html">QNM_data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TaylorT2.html">TaylorT2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autocorrelation.html">autocorrelation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="autocorrelation_cuda.html">autocorrelation_cuda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="detector_util.html">detector_util</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fisher.html">fisher</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gIMRPhenomD.html">gIMRPhenomD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gIMRPhenomP.html">gIMRPhenomP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gwatpy_wrapping.html">gwatpy_wrapping</a></li>
+<li class="toctree-l2"><a class="reference internal" href="io_util.html">io_util</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mc_reject.html">mc_reject</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">mcmc_gw</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv427PTMCMC_method_specific_prepNSt6stringEiPbP24MCMC_modification_struct"><code class="docutils literal notranslate"><span class="pre">PTMCMC_method_specific_prep()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv429RJPTMCMC_method_specific_prepNSt6stringEiPbP24MCMC_modification_struct"><code class="docutils literal notranslate"><span class="pre">RJPTMCMC_method_specific_prep()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv416MCMC_prep_paramsPdPdP15gen_params_baseIdEiNSt6stringEP24MCMC_modification_structbd"><code class="docutils literal notranslate"><span class="pre">MCMC_prep_params()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv442PTMCMC_MH_dynamic_PT_alloc_uncorrelated_GWiiiiPN9bayesship12positionInfoEPPN9bayesship12positionInfoEdiiibiPPdPN9bayesship13probabilityFnEibiPPNSt7complexIdEEPPdPPdPidPNSt6stringEP24MCMC_modification_structNSt6stringENSt6stringENSt6stringEbbb"><code class="docutils literal notranslate"><span class="pre">PTMCMC_MH_dynamic_PT_alloc_uncorrelated_GW()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv444RJPTMCMC_MH_dynamic_PT_alloc_uncorrelated_GWiiiiiPN9bayesship12positionInfoEPPN9bayesship12positionInfoEdiiibiPPdPN9bayesship13probabilityFnEibiPPNSt7complexIdEEPPdPPdPidPNSt6stringEP24MCMC_modification_structNSt6stringENSt6stringENSt6stringENSt6stringEbbb"><code class="docutils literal notranslate"><span class="pre">RJPTMCMC_MH_dynamic_PT_alloc_uncorrelated_GW()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv446maximized_Log_Likelihood_aligned_spin_internalPNSt7complexIdEEPdPdPNSt7complexIdEE6size_tP12fftw_outline"><code class="docutils literal notranslate"><span class="pre">maximized_Log_Likelihood_aligned_spin_internal()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv448maximized_Log_Likelihood_unaligned_spin_internalPNSt7complexIdEEPdPdPNSt7complexIdEEPNSt7complexIdEE6size_tP12fftw_outline"><code class="docutils literal notranslate"><span class="pre">maximized_Log_Likelihood_unaligned_spin_internal()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv423Log_Likelihood_internalPNSt7complexIdEEPdPdPdPNSt7complexIdEEibNSt6stringE"><code class="docutils literal notranslate"><span class="pre">Log_Likelihood_internal()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv423Log_Likelihood_internalPNSt7complexIdEEPdPNSt7complexIdEEP10Quadrature"><code class="docutils literal notranslate"><span class="pre">Log_Likelihood_internal()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv425MCMC_likelihood_extrinsicbP15gen_params_baseIdENSt6stringEPiPPdPPNSt7complexIdEEPPdPPdNSt6stringEbPNSt6stringEiP10Quadrature"><code class="docutils literal notranslate"><span class="pre">MCMC_likelihood_extrinsic()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv413find_fiducialiPdPN9bayesship13probabilityFnERKNSt6vectorIdEEiiPPNSt7complexIdEEPPdPPdPidPNSt6stringENSt6stringEP24MCMC_modification_structPPNSt7complexIdEEPPNSt7complexIdEEP15gen_params_baseIdE"><code class="docutils literal notranslate"><span class="pre">find_fiducial()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv414mcmc_intrinsic"><code class="docutils literal notranslate"><span class="pre">mcmc_intrinsic</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv418mcmc_save_waveform"><code class="docutils literal notranslate"><span class="pre">mcmc_save_waveform</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv424MCMC_modification_struct"><code class="docutils literal notranslate"><span class="pre">MCMC_modification_struct</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N24MCMC_modification_struct8ppE_NmodE"><code class="docutils literal notranslate"><span class="pre">ppE_Nmod</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N24MCMC_modification_struct4bppeE"><code class="docutils literal notranslate"><span class="pre">bppe</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N24MCMC_modification_struct13gIMR_Nmod_phiE"><code class="docutils literal notranslate"><span class="pre">gIMR_Nmod_phi</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N24MCMC_modification_struct9gIMR_phiiE"><code class="docutils literal notranslate"><span class="pre">gIMR_phii</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N24MCMC_modification_struct15gIMR_Nmod_sigmaE"><code class="docutils literal notranslate"><span class="pre">gIMR_Nmod_sigma</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N24MCMC_modification_struct11gIMR_sigmaiE"><code class="docutils literal notranslate"><span class="pre">gIMR_sigmai</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N24MCMC_modification_struct14gIMR_Nmod_betaE"><code class="docutils literal notranslate"><span class="pre">gIMR_Nmod_beta</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N24MCMC_modification_struct10gIMR_betaiE"><code class="docutils literal notranslate"><span class="pre">gIMR_betai</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N24MCMC_modification_struct15gIMR_Nmod_alphaE"><code class="docutils literal notranslate"><span class="pre">gIMR_Nmod_alpha</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N24MCMC_modification_struct11gIMR_alphaiE"><code class="docutils literal notranslate"><span class="pre">gIMR_alphai</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N24MCMC_modification_struct7NSflag1E"><code class="docutils literal notranslate"><span class="pre">NSflag1</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N24MCMC_modification_struct7NSflag2E"><code class="docutils literal notranslate"><span class="pre">NSflag2</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N24MCMC_modification_struct13EOS_plat_flagE"><code class="docutils literal notranslate"><span class="pre">EOS_plat_flag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N24MCMC_modification_struct10tidal_loveE"><code class="docutils literal notranslate"><span class="pre">tidal_love</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N24MCMC_modification_struct16tidal_love_errorE"><code class="docutils literal notranslate"><span class="pre">tidal_love_error</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N24MCMC_modification_struct11alpha_paramE"><code class="docutils literal notranslate"><span class="pre">alpha_param</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N24MCMC_modification_struct10EA_region1E"><code class="docutils literal notranslate"><span class="pre">EA_region1</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N24MCMC_modification_struct10GAUSS_QUADE"><code class="docutils literal notranslate"><span class="pre">GAUSS_QUAD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N24MCMC_modification_struct6log10FE"><code class="docutils literal notranslate"><span class="pre">log10F</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N24MCMC_modification_struct7weightsE"><code class="docutils literal notranslate"><span class="pre">weights</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N24MCMC_modification_struct11fisher_freqE"><code class="docutils literal notranslate"><span class="pre">fisher_freq</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N24MCMC_modification_struct14fisher_weightsE"><code class="docutils literal notranslate"><span class="pre">fisher_weights</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N24MCMC_modification_struct10fisher_PSDE"><code class="docutils literal notranslate"><span class="pre">fisher_PSD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N24MCMC_modification_struct17fisher_GAUSS_QUADE"><code class="docutils literal notranslate"><span class="pre">fisher_GAUSS_QUAD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N24MCMC_modification_struct13fisher_lengthE"><code class="docutils literal notranslate"><span class="pre">fisher_length</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N24MCMC_modification_struct13fisher_log10FE"><code class="docutils literal notranslate"><span class="pre">fisher_log10F</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N24MCMC_modification_struct10QuadMethodE"><code class="docutils literal notranslate"><span class="pre">QuadMethod</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N24MCMC_modification_struct10adaptivellE"><code class="docutils literal notranslate"><span class="pre">adaptivell</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N24MCMC_modification_struct5f_refE"><code class="docutils literal notranslate"><span class="pre">f_ref</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N24MCMC_modification_struct4TmaxE"><code class="docutils literal notranslate"><span class="pre">Tmax</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N24MCMC_modification_struct2t0E"><code class="docutils literal notranslate"><span class="pre">t0</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N24MCMC_modification_struct2nuE"><code class="docutils literal notranslate"><span class="pre">nu</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv415MCMC_user_param"><code class="docutils literal notranslate"><span class="pre">MCMC_user_param</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15MCMC_user_param9burn_dataE"><code class="docutils literal notranslate"><span class="pre">burn_data</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15MCMC_user_param10burn_noiseE"><code class="docutils literal notranslate"><span class="pre">burn_noise</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15MCMC_user_param10burn_freqsE"><code class="docutils literal notranslate"><span class="pre">burn_freqs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15MCMC_user_param12burn_lengthsE"><code class="docutils literal notranslate"><span class="pre">burn_lengths</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15MCMC_user_param10burn_plansE"><code class="docutils literal notranslate"><span class="pre">burn_plans</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15MCMC_user_param5mFishE"><code class="docutils literal notranslate"><span class="pre">mFish</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15MCMC_user_param10GAUSS_QUADE"><code class="docutils literal notranslate"><span class="pre">GAUSS_QUAD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15MCMC_user_param6log10FE"><code class="docutils literal notranslate"><span class="pre">log10F</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15MCMC_user_param7weightsE"><code class="docutils literal notranslate"><span class="pre">weights</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15MCMC_user_param11fisher_freqE"><code class="docutils literal notranslate"><span class="pre">fisher_freq</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15MCMC_user_param14fisher_weightsE"><code class="docutils literal notranslate"><span class="pre">fisher_weights</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15MCMC_user_param10fisher_PSDE"><code class="docutils literal notranslate"><span class="pre">fisher_PSD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15MCMC_user_param9fisher_ADE"><code class="docutils literal notranslate"><span class="pre">fisher_AD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15MCMC_user_param17fisher_GAUSS_QUADE"><code class="docutils literal notranslate"><span class="pre">fisher_GAUSS_QUAD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15MCMC_user_param13fisher_lengthE"><code class="docutils literal notranslate"><span class="pre">fisher_length</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15MCMC_user_param13fisher_log10FE"><code class="docutils literal notranslate"><span class="pre">fisher_log10F</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15MCMC_user_param10QuadMethodE"><code class="docutils literal notranslate"><span class="pre">QuadMethod</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15MCMC_user_param16mod_prior_rangesE"><code class="docutils literal notranslate"><span class="pre">mod_prior_ranges</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15MCMC_user_param10mod_structE"><code class="docutils literal notranslate"><span class="pre">mod_struct</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15MCMC_user_param1rE"><code class="docutils literal notranslate"><span class="pre">r</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv413mcmcVariables"><code class="docutils literal notranslate"><span class="pre">mcmcVariables</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N13mcmcVariables10mcmc_noiseE"><code class="docutils literal notranslate"><span class="pre">mcmc_noise</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N13mcmcVariables13mcmc_init_posE"><code class="docutils literal notranslate"><span class="pre">mcmc_init_pos</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N13mcmcVariables9mcmc_dataE"><code class="docutils literal notranslate"><span class="pre">mcmc_data</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N13mcmcVariables16mcmc_frequenciesE"><code class="docutils literal notranslate"><span class="pre">mcmc_frequencies</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N13mcmcVariables14mcmc_detectorsE"><code class="docutils literal notranslate"><span class="pre">mcmc_detectors</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N13mcmcVariables22mcmc_generation_methodE"><code class="docutils literal notranslate"><span class="pre">mcmc_generation_method</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N13mcmcVariables16mcmc_data_lengthE"><code class="docutils literal notranslate"><span class="pre">mcmc_data_length</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N13mcmcVariables15mcmc_fftw_plansE"><code class="docutils literal notranslate"><span class="pre">mcmc_fftw_plans</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N13mcmcVariables18mcmc_num_detectorsE"><code class="docutils literal notranslate"><span class="pre">mcmc_num_detectors</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N13mcmcVariables13mcmc_gps_timeE"><code class="docutils literal notranslate"><span class="pre">mcmc_gps_time</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N13mcmcVariables9mcmc_gmstE"><code class="docutils literal notranslate"><span class="pre">mcmc_gmst</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N13mcmcVariables12mcmc_max_dimE"><code class="docutils literal notranslate"><span class="pre">mcmc_max_dim</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N13mcmcVariables12mcmc_min_dimE"><code class="docutils literal notranslate"><span class="pre">mcmc_min_dim</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N13mcmcVariables15mcmc_mod_structE"><code class="docutils literal notranslate"><span class="pre">mcmc_mod_struct</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N13mcmcVariables18mcmc_save_waveformE"><code class="docutils literal notranslate"><span class="pre">mcmc_save_waveform</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N13mcmcVariables14mcmc_intrinsicE"><code class="docutils literal notranslate"><span class="pre">mcmc_intrinsic</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N13mcmcVariables16mcmc_deriv_orderE"><code class="docutils literal notranslate"><span class="pre">mcmc_deriv_order</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N13mcmcVariables13mcmc_log_betaE"><code class="docutils literal notranslate"><span class="pre">mcmc_log_beta</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N13mcmcVariables15user_parametersE"><code class="docutils literal notranslate"><span class="pre">user_parameters</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N13mcmcVariables6maxDimE"><code class="docutils literal notranslate"><span class="pre">maxDim</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N13mcmcVariables13mcmc_adaptiveE"><code class="docutils literal notranslate"><span class="pre">mcmc_adaptive</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N13mcmcVariables10adaptivellE"><code class="docutils literal notranslate"><span class="pre">adaptivell</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N13mcmcVariables10QuadMethodE"><code class="docutils literal notranslate"><span class="pre">QuadMethod</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv415mcmcVariablesRJ"><code class="docutils literal notranslate"><span class="pre">mcmcVariablesRJ</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15mcmcVariablesRJ10mcmc_noiseE"><code class="docutils literal notranslate"><span class="pre">mcmc_noise</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15mcmcVariablesRJ13mcmc_init_posE"><code class="docutils literal notranslate"><span class="pre">mcmc_init_pos</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15mcmcVariablesRJ9mcmc_dataE"><code class="docutils literal notranslate"><span class="pre">mcmc_data</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15mcmcVariablesRJ16mcmc_frequenciesE"><code class="docutils literal notranslate"><span class="pre">mcmc_frequencies</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15mcmcVariablesRJ14mcmc_detectorsE"><code class="docutils literal notranslate"><span class="pre">mcmc_detectors</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15mcmcVariablesRJ22mcmc_generation_methodE"><code class="docutils literal notranslate"><span class="pre">mcmc_generation_method</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15mcmcVariablesRJ31mcmc_generation_method_extendedE"><code class="docutils literal notranslate"><span class="pre">mcmc_generation_method_extended</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15mcmcVariablesRJ16mcmc_data_lengthE"><code class="docutils literal notranslate"><span class="pre">mcmc_data_length</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15mcmcVariablesRJ15mcmc_fftw_plansE"><code class="docutils literal notranslate"><span class="pre">mcmc_fftw_plans</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15mcmcVariablesRJ18mcmc_num_detectorsE"><code class="docutils literal notranslate"><span class="pre">mcmc_num_detectors</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15mcmcVariablesRJ13mcmc_gps_timeE"><code class="docutils literal notranslate"><span class="pre">mcmc_gps_time</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15mcmcVariablesRJ9mcmc_gmstE"><code class="docutils literal notranslate"><span class="pre">mcmc_gmst</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15mcmcVariablesRJ12mcmc_max_dimE"><code class="docutils literal notranslate"><span class="pre">mcmc_max_dim</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15mcmcVariablesRJ12mcmc_min_dimE"><code class="docutils literal notranslate"><span class="pre">mcmc_min_dim</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15mcmcVariablesRJ15mcmc_mod_structE"><code class="docutils literal notranslate"><span class="pre">mcmc_mod_struct</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15mcmcVariablesRJ18mcmc_save_waveformE"><code class="docutils literal notranslate"><span class="pre">mcmc_save_waveform</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15mcmcVariablesRJ14mcmc_intrinsicE"><code class="docutils literal notranslate"><span class="pre">mcmc_intrinsic</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15mcmcVariablesRJ16mcmc_deriv_orderE"><code class="docutils literal notranslate"><span class="pre">mcmc_deriv_order</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15mcmcVariablesRJ13mcmc_log_betaE"><code class="docutils literal notranslate"><span class="pre">mcmc_log_beta</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15mcmcVariablesRJ15user_parametersE"><code class="docutils literal notranslate"><span class="pre">user_parameters</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15mcmcVariablesRJ6maxDimE"><code class="docutils literal notranslate"><span class="pre">maxDim</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15mcmcVariablesRJ6minDimE"><code class="docutils literal notranslate"><span class="pre">minDim</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mcmc_gw_extended.html">mcmc_gw_extended</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mcmc_io_util.html">mcmc_io_util</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mcmc_sampler.html">mcmc_sampler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mcmc_sampler_internals.html">mcmc_sampler_internals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ortho_basis.html">ortho_basis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pn_waveform_util.html">pn_waveform_util</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ppE_IMRPhenomD.html">ppE_IMRPhenomD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ppE_IMRPhenomD_NRT.html">ppE_IMRPhenomD_NRT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ppE_IMRPhenomP.html">ppE_IMRPhenomP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ppE_utilities.html">ppE_utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="standardPriorLibrary.html">standardPriorLibrary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="threadPool.html">threadPool</a></li>
+<li class="toctree-l2"><a class="reference internal" href="util.html">util</a></li>
+<li class="toctree-l2"><a class="reference internal" href="waveform_generator.html">waveform_generator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="waveform_generator_C.html">waveform_generator_C</a></li>
+<li class="toctree-l2"><a class="reference internal" href="waveform_util.html">waveform_util</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">GW Analysis Tools</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">API</a></li>
+      <li class="breadcrumb-item active">mcmc_gw</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/mcmc_gw.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="mcmc-gw">
+<span id="api-mcmc-gw"></span><h1>mcmc_gw<a class="headerlink" href="#mcmc-gw" title="Link to this heading"></a></h1>
+<p>Header file for the Graviational Wave specific MCMC routines </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv427PTMCMC_method_specific_prepNSt6stringEiPbP24MCMC_modification_struct">
+<span id="_CPPv327PTMCMC_method_specific_prepNSt6stringEiPbP24MCMC_modification_struct"></span><span id="_CPPv227PTMCMC_method_specific_prepNSt6stringEiPbP24MCMC_modification_struct"></span><span id="PTMCMC_method_specific_prep__ss.i.bP.MCMC_modification_structP"></span><span class="target" id="mcmc__gw_8h_1a05fe5e0d6f102d62a2b936c9e2db07ff"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PTMCMC_method_specific_prep</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">generation_method</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">dimension</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">intrinsic</span></span>, <a class="reference internal" href="#_CPPv424MCMC_modification_struct" title="MCMC_modification_struct"><span class="n"><span class="pre">MCMC_modification_struct</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">mod_struct</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv427PTMCMC_method_specific_prepNSt6stringEiPbP24MCMC_modification_struct" title="Link to this definition"></a><br /></dt>
+<dd><p>Unpacks MCMC parameters for method specific initiation. </p>
+<p>Populates seeding vector if non supplied, populates mcmc_Nmod, populates mcmc_log_beta, populates mcmc_intrinsic </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv429RJPTMCMC_method_specific_prepNSt6stringEiPbP24MCMC_modification_struct">
+<span id="_CPPv329RJPTMCMC_method_specific_prepNSt6stringEiPbP24MCMC_modification_struct"></span><span id="_CPPv229RJPTMCMC_method_specific_prepNSt6stringEiPbP24MCMC_modification_struct"></span><span id="RJPTMCMC_method_specific_prep__ss.i.bP.MCMC_modification_structP"></span><span class="target" id="mcmc__gw_8h_1a4e37907d499041030cadda111373d09c"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RJPTMCMC_method_specific_prep</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">generation_method</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">dimension</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">intrinsic</span></span>, <a class="reference internal" href="#_CPPv424MCMC_modification_struct" title="MCMC_modification_struct"><span class="n"><span class="pre">MCMC_modification_struct</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">mod_struct</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv429RJPTMCMC_method_specific_prepNSt6stringEiPbP24MCMC_modification_struct" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv416MCMC_prep_paramsPdPdP15gen_params_baseIdEiNSt6stringEP24MCMC_modification_structbd">
+<span id="_CPPv316MCMC_prep_paramsPdPdP15gen_params_baseIdEiNSt6stringEP24MCMC_modification_structbd"></span><span id="_CPPv216MCMC_prep_paramsPdPdP15gen_params_baseIdEiNSt6stringEP24MCMC_modification_structbd"></span><span id="MCMC_prep_params__doubleP.doubleP.gen_params_base:double:P.i.ss.MCMC_modification_structP.b.double"></span><span class="target" id="mcmc__gw_8h_1acb9f3211eb79f7dc7660128ba1c71e5a"></span><a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MCMC_prep_params</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">param</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">temp_params</span></span>, <a class="reference internal" href="util.html#_CPPv4I0E15gen_params_base" title="gen_params_base"><span class="n"><span class="pre">gen_params_base</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">gen_params</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">dimension</span></span>, <a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">generation_method</span></span>, <a class="reference internal" href="#_CPPv424MCMC_modification_struct" title="MCMC_modification_struct"><span class="n"><span class="pre">MCMC_modification_struct</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">mod_struct</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">intrinsic</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">gmst</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv416MCMC_prep_paramsPdPdP15gen_params_baseIdEiNSt6stringEP24MCMC_modification_structbd" title="Link to this definition"></a><br /></dt>
+<dd><p>utility to do MCMC specific transformations on the input param vector before passing to the repacking utillity </p>
+<p>Returns the local generation method to be used in the LL functions </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv442PTMCMC_MH_dynamic_PT_alloc_uncorrelated_GWiiiiPN9bayesship12positionInfoEPPN9bayesship12positionInfoEdiiibiPPdPN9bayesship13probabilityFnEibiPPNSt7complexIdEEPPdPPdPidPNSt6stringEP24MCMC_modification_structNSt6stringENSt6stringENSt6stringEbbb">
+<span id="_CPPv342PTMCMC_MH_dynamic_PT_alloc_uncorrelated_GWiiiiPN9bayesship12positionInfoEPPN9bayesship12positionInfoEdiiibiPPdPN9bayesship13probabilityFnEibiPPNSt7complexIdEEPPdPPdPidPNSt6stringEP24MCMC_modification_structNSt6stringENSt6stringENSt6stringEbbb"></span><span id="_CPPv242PTMCMC_MH_dynamic_PT_alloc_uncorrelated_GWiiiiPN9bayesship12positionInfoEPPN9bayesship12positionInfoEdiiibiPPdPN9bayesship13probabilityFnEibiPPNSt7complexIdEEPPdPPdPidPNSt6stringEP24MCMC_modification_structNSt6stringENSt6stringENSt6stringEbbb"></span><span id="PTMCMC_MH_dynamic_PT_alloc_uncorrelated_GW__i.i.i.i.bayesship::positionInfoP.bayesship::positionInfoPP.double.i.i.i.b.i.doublePP.bayesship::probabilityFnP.i.b.i.std::complex:double:PP.doublePP.doublePP.iP.double.ssP.MCMC_modification_structP.ss.ss.ss.b.b.b"></span><span class="target" id="mcmc__gw_8h_1aaa7e92fc01ba7fe8e864fd084ae809fd"></span><span class="n"><span class="pre">bayesship</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">bayesshipSampler</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">PTMCMC_MH_dynamic_PT_alloc_uncorrelated_GW</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">dimension</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">independentSamples</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">ensembleSize</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">ensembleN</span></span>, <span class="n"><span class="pre">bayesship</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">positionInfo</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">initialPosition</span></span>, <span class="n"><span class="pre">bayesship</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">positionInfo</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">initialEnsemble</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">swapProb</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">burnIterations</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">burnPriorIterations</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">priorIterations</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">writePriorData</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">batchSize</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">priorRanges</span></span>, <span class="n"><span class="pre">bayesship</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">probabilityFn</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">lp</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">numThreads</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">pool</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">num_detectors</span></span>, <a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">complex</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">noise_psd</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">frequencies</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data_length</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">gps_time</span></span>, <a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">detectors</span></span>, <a class="reference internal" href="#_CPPv424MCMC_modification_struct" title="MCMC_modification_struct"><span class="n"><span class="pre">MCMC_modification_struct</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">mod_struct</span></span>, <a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">generation_method</span></span>, <a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">outputDir</span></span>, <a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">outputFileMoniker</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">ignoreExistingCheckpoint</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">restrictSwapTemperatures</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">coldChainStorageOnly</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv442PTMCMC_MH_dynamic_PT_alloc_uncorrelated_GWiiiiPN9bayesship12positionInfoEPPN9bayesship12positionInfoEdiiibiPPdPN9bayesship13probabilityFnEibiPPNSt7complexIdEEPPdPPdPidPNSt6stringEP24MCMC_modification_structNSt6stringENSt6stringENSt6stringEbbb" title="Link to this definition"></a><br /></dt>
+<dd><p>Takes in an MCMC checkpoint file and continues the chain. </p>
+<p>Obviously, the user must be sure to correctly match the dimension, number of chains, the generation_method, the prior function, the data, psds, freqs, and the detectors (number and name), and the gps_time to the previous run, otherwise the behavior of the sampler is undefined.</p>
+<p>numThreads and pool do not necessarily have to be the same </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv444RJPTMCMC_MH_dynamic_PT_alloc_uncorrelated_GWiiiiiPN9bayesship12positionInfoEPPN9bayesship12positionInfoEdiiibiPPdPN9bayesship13probabilityFnEibiPPNSt7complexIdEEPPdPPdPidPNSt6stringEP24MCMC_modification_structNSt6stringENSt6stringENSt6stringENSt6stringEbbb">
+<span id="_CPPv344RJPTMCMC_MH_dynamic_PT_alloc_uncorrelated_GWiiiiiPN9bayesship12positionInfoEPPN9bayesship12positionInfoEdiiibiPPdPN9bayesship13probabilityFnEibiPPNSt7complexIdEEPPdPPdPidPNSt6stringEP24MCMC_modification_structNSt6stringENSt6stringENSt6stringENSt6stringEbbb"></span><span id="_CPPv244RJPTMCMC_MH_dynamic_PT_alloc_uncorrelated_GWiiiiiPN9bayesship12positionInfoEPPN9bayesship12positionInfoEdiiibiPPdPN9bayesship13probabilityFnEibiPPNSt7complexIdEEPPdPPdPidPNSt6stringEP24MCMC_modification_structNSt6stringENSt6stringENSt6stringENSt6stringEbbb"></span><span id="RJPTMCMC_MH_dynamic_PT_alloc_uncorrelated_GW__i.i.i.i.i.bayesship::positionInfoP.bayesship::positionInfoPP.double.i.i.i.b.i.doublePP.bayesship::probabilityFnP.i.b.i.std::complex:double:PP.doublePP.doublePP.iP.double.ssP.MCMC_modification_structP.ss.ss.ss.ss.b.b.b"></span><span class="target" id="mcmc__gw_8h_1a0dd14180c6759f88bcdad6d0b5af810e"></span><span class="n"><span class="pre">bayesship</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">bayesshipSampler</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">RJPTMCMC_MH_dynamic_PT_alloc_uncorrelated_GW</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">minDim</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">maxDim</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">independentSamples</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">ensembleSize</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">ensembleN</span></span>, <span class="n"><span class="pre">bayesship</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">positionInfo</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">initialPosition</span></span>, <span class="n"><span class="pre">bayesship</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">positionInfo</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">initialEnsemble</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">swapProb</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">burnIterations</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">burnPriorIterations</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">priorIterations</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">writePriorData</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">batchSize</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">priorRanges</span></span>, <span class="n"><span class="pre">bayesship</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">probabilityFn</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">log_prior</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">numThreads</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">pool</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">num_detectors</span></span>, <a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">complex</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">noise_psd</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">frequencies</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data_length</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">gps_time</span></span>, <a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">detectors</span></span>, <a class="reference internal" href="#_CPPv424MCMC_modification_struct" title="MCMC_modification_struct"><span class="n"><span class="pre">MCMC_modification_struct</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">mod_struct</span></span>, <a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">generation_method</span></span>, <a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">generation_method_extended</span></span>, <a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">outputDir</span></span>, <a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">outputFileMoniker</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">ignoreExistingCheckpoint</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">restrictSwapTemperatures</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">coldChainStorageOnly</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv444RJPTMCMC_MH_dynamic_PT_alloc_uncorrelated_GWiiiiiPN9bayesship12positionInfoEPPN9bayesship12positionInfoEdiiibiPPdPN9bayesship13probabilityFnEibiPPNSt7complexIdEEPPdPPdPidPNSt6stringEP24MCMC_modification_structNSt6stringENSt6stringENSt6stringENSt6stringEbbb" title="Link to this definition"></a><br /></dt>
+<dd><p>Takes in an MCMC checkpoint file and continues the chain. </p>
+<p>Obviously, the user must be sure to correctly match the dimension, number of chains, the generation_method, the prior function, the data, psds, freqs, and the detectors (number and name), and the gps_time to the previous run, otherwise the behavior of the sampler is undefined.</p>
+<p>numThreads and pool do not necessarily have to be the same </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv446maximized_Log_Likelihood_aligned_spin_internalPNSt7complexIdEEPdPdPNSt7complexIdEE6size_tP12fftw_outline">
+<span id="_CPPv346maximized_Log_Likelihood_aligned_spin_internalPNSt7complexIdEEPdPdPNSt7complexIdEE6size_tP12fftw_outline"></span><span id="_CPPv246maximized_Log_Likelihood_aligned_spin_internalPNSt7complexIdEEPdPdPNSt7complexIdEE6size_tP12fftw_outline"></span><span id="maximized_Log_Likelihood_aligned_spin_internal__std::complex:double:P.doubleP.doubleP.std::complex:double:P.s.fftw_outlineP"></span><span class="target" id="mcmc__gw_8h_1aecba6e7ba4f5a7463c95e0d65cfb3145"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">maximized_Log_Likelihood_aligned_spin_internal</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">complex</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">psd</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">frequencies</span></span>, <a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">complex</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">detector_response</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">length</span></span>, <a class="reference internal" href="util.html#_CPPv412fftw_outline" title="fftw_outline"><span class="n"><span class="pre">fftw_outline</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">plan</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv446maximized_Log_Likelihood_aligned_spin_internalPNSt7complexIdEEPdPdPNSt7complexIdEE6size_tP12fftw_outline" title="Link to this definition"></a><br /></dt>
+<dd><p>Maximized match over coalescence variables - returns log likelihood NOT NORMALIZED for aligned spins. </p>
+<p>Note: this function is not properly normalized for an absolute comparison. This is made for MCMC sampling, so to minimize time, constant terms like (Data|Data), which would cancel in the Metropolis-Hasting ratio, are left out for efficiency </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv448maximized_Log_Likelihood_unaligned_spin_internalPNSt7complexIdEEPdPdPNSt7complexIdEEPNSt7complexIdEE6size_tP12fftw_outline">
+<span id="_CPPv348maximized_Log_Likelihood_unaligned_spin_internalPNSt7complexIdEEPdPdPNSt7complexIdEEPNSt7complexIdEE6size_tP12fftw_outline"></span><span id="_CPPv248maximized_Log_Likelihood_unaligned_spin_internalPNSt7complexIdEEPdPdPNSt7complexIdEEPNSt7complexIdEE6size_tP12fftw_outline"></span><span id="maximized_Log_Likelihood_unaligned_spin_internal__std::complex:double:P.doubleP.doubleP.std::complex:double:P.std::complex:double:P.s.fftw_outlineP"></span><span class="target" id="mcmc__gw_8h_1a2c44e4b3acd713ae4ad07b92b96ac017"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">maximized_Log_Likelihood_unaligned_spin_internal</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">complex</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">psd</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">frequencies</span></span>, <a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">complex</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">hplus</span></span>, <a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">complex</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">hcross</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">length</span></span>, <a class="reference internal" href="util.html#_CPPv412fftw_outline" title="fftw_outline"><span class="n"><span class="pre">fftw_outline</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">plan</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv448maximized_Log_Likelihood_unaligned_spin_internalPNSt7complexIdEEPdPdPNSt7complexIdEEPNSt7complexIdEE6size_tP12fftw_outline" title="Link to this definition"></a><br /></dt>
+<dd><p>log likelihood function that maximizes over extrinsic parameters tc, phic, D, and phiRef, the reference frequency - for unaligned spins </p>
+<p>Ref: arXiv 1603.02444v2</p>
+<p>NOTE: Only works for +/x polarizations </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv423Log_Likelihood_internalPNSt7complexIdEEPdPdPdPNSt7complexIdEEibNSt6stringE">
+<span id="_CPPv323Log_Likelihood_internalPNSt7complexIdEEPdPdPdPNSt7complexIdEEibNSt6stringE"></span><span id="_CPPv223Log_Likelihood_internalPNSt7complexIdEEPdPdPdPNSt7complexIdEEibNSt6stringE"></span><span id="Log_Likelihood_internal__std::complex:double:P.doubleP.doubleP.doubleP.std::complex:double:P.i.b.ss"></span><span class="target" id="mcmc__gw_8h_1a64dda1c7803a0e355d700c39994149b3"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Log_Likelihood_internal</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">complex</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">psd</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">frequencies</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">weights</span></span>, <a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">complex</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">detector_response</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">length</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">log10F</span></span>, <a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">integration_method</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv423Log_Likelihood_internalPNSt7complexIdEEPdPdPdPNSt7complexIdEEibNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Internal function for the unmarginalized log of the likelihood. </p>
+<p>.5 * ( ( h | h ) - 2 ( D | h ) ) </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv423Log_Likelihood_internalPNSt7complexIdEEPdPNSt7complexIdEEP10Quadrature">
+<span id="_CPPv323Log_Likelihood_internalPNSt7complexIdEEPdPNSt7complexIdEEP10Quadrature"></span><span id="_CPPv223Log_Likelihood_internalPNSt7complexIdEEPdPNSt7complexIdEEP10Quadrature"></span><span id="Log_Likelihood_internal__std::complex:double:P.doubleP.std::complex:double:P.QuadratureP"></span><span class="target" id="mcmc__gw_8h_1a36257bd162da3c1d78243834d21cb5ac"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Log_Likelihood_internal</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">complex</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">psd</span></span>, <a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">complex</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">detector_response</span></span>, <span class="n"><span class="pre">Quadrature</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">QuadMethod</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv423Log_Likelihood_internalPNSt7complexIdEEPdPNSt7complexIdEEP10Quadrature" title="Link to this definition"></a><br /></dt>
+<dd><p>Compute unmarginalized likelihood with a specified Quadrature method. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv425MCMC_likelihood_extrinsicbP15gen_params_baseIdENSt6stringEPiPPdPPNSt7complexIdEEPPdPPdNSt6stringEbPNSt6stringEiP10Quadrature">
+<span id="_CPPv325MCMC_likelihood_extrinsicbP15gen_params_baseIdENSt6stringEPiPPdPPNSt7complexIdEEPPdPPdNSt6stringEbPNSt6stringEiP10Quadrature"></span><span id="_CPPv225MCMC_likelihood_extrinsicbP15gen_params_baseIdENSt6stringEPiPPdPPNSt7complexIdEEPPdPPdNSt6stringEbPNSt6stringEiP10Quadrature"></span><span id="MCMC_likelihood_extrinsic__b.gen_params_base:double:P.ss.iP.doublePP.std::complex:double:PP.doublePP.doublePP.ss.b.ssP.i.QuadratureP"></span><span class="target" id="mcmc__gw_8h_1a10487a00e3fe184a0ac7971f2f970138"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MCMC_likelihood_extrinsic</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">save_waveform</span></span>, <a class="reference internal" href="util.html#_CPPv4I0E15gen_params_base" title="gen_params_base"><span class="n"><span class="pre">gen_params_base</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">parameters</span></span>, <a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">generation_method</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data_length</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">frequencies</span></span>, <a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">complex</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">psd</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">weights</span></span>, <a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">integration_method</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">log10F</span></span>, <a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">detectors</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">num_detectors</span></span>, <span class="n"><span class="pre">Quadrature</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">QuadMethod</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv425MCMC_likelihood_extrinsicbP15gen_params_baseIdENSt6stringEPiPPdPPNSt7complexIdEEPPdPPdNSt6stringEbPNSt6stringEiP10Quadrature" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv413find_fiducialiPdPN9bayesship13probabilityFnERKNSt6vectorIdEEiiPPNSt7complexIdEEPPdPPdPidPNSt6stringENSt6stringEP24MCMC_modification_structPPNSt7complexIdEEPPNSt7complexIdEEP15gen_params_baseIdE">
+<span id="_CPPv313find_fiducialiPdPN9bayesship13probabilityFnERKNSt6vectorIdEEiiPPNSt7complexIdEEPPdPPdPidPNSt6stringENSt6stringEP24MCMC_modification_structPPNSt7complexIdEEPPNSt7complexIdEEP15gen_params_baseIdE"></span><span id="_CPPv213find_fiducialiPdPN9bayesship13probabilityFnERKNSt6vectorIdEEiiPPNSt7complexIdEEPPdPPdPidPNSt6stringENSt6stringEP24MCMC_modification_structPPNSt7complexIdEEPPNSt7complexIdEEP15gen_params_baseIdE"></span><span id="find_fiducial__i.doubleP.bayesship::probabilityFnP.std::vector:double:CR.i.i.std::complex:double:PP.doublePP.doublePP.iP.double.ssP.ss.MCMC_modification_structP.std::complex:double:PP.std::complex:double:PP.gen_params_base:double:P"></span><span class="target" id="mcmc__gw_8h_1aa7f2e40afe220ddf41e0f3891439cf80"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">find_fiducial</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">dimension</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">initial_params</span></span>, <span class="n"><span class="pre">bayesship</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">probabilityFn</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">log_prior</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">param_scales</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">num_mh_steps</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">num_detectors</span></span>, <a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">complex</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">noise_psd</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">frequencies</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data_length</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">gps_time</span></span>, <a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">detectors</span></span>, <a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">generation_method</span></span>, <a class="reference internal" href="#_CPPv424MCMC_modification_struct" title="MCMC_modification_struct"><span class="n"><span class="pre">MCMC_modification_struct</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">mod_struct</span></span>, <a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">complex</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">fiducial_out</span></span>, <a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">complex</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">test_out</span></span>, <a class="reference internal" href="util.html#_CPPv4I0E15gen_params_base" title="gen_params_base"><span class="n"><span class="pre">gen_params_base</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">test_gp_out</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv413find_fiducialiPdPN9bayesship13probabilityFnERKNSt6vectorIdEEiiPPNSt7complexIdEEPPdPPdPidPNSt6stringENSt6stringEP24MCMC_modification_structPPNSt7complexIdEEPPNSt7complexIdEEP15gen_params_baseIdE" title="Link to this definition"></a><br /></dt>
+<dd><p>Runs a Metropolis-Hastings chain from initial_params to locate good fiducial and test waveforms relative binning initialization. </p>
+<p>Outputs detector responses: fiducial_out — response at the maximum-likelihood point found test_out — response at the last accepted point in the chain Caller must pre-allocate both output arrays as [num_detectors][data_length[i]]. If waveform generation fails for fiducial_out, it is set to the initial parameter point. If it fails for test_out, it is set to the max-likelihood point.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dimension</strong> – Size of parameter space. </p></li>
+<li><p><strong>initial_params</strong> – Array of parameters to begin exploration. </p></li>
+<li><p><strong>log_prior</strong> – Log-prior probability function for the model. </p></li>
+<li><p><strong>param_scales</strong> – Typical scale for each parameter (e.g. prior width); used to size finite-difference steps for the Fisher diagonal. </p></li>
+<li><p><strong>num_mh_steps</strong> – Number of M-H steps to be taken. </p></li>
+<li><p><strong>num_detectors</strong> – Number of detectors. </p></li>
+<li><p><strong>data</strong> – The signal at each detector whose fiducial waveform will be found for. </p></li>
+<li><p><strong>noise_psd</strong> – The PSD for each detector. </p></li>
+<li><p><strong>frequencies</strong> – Frequency arrays for each detector. </p></li>
+<li><p><strong>data_length</strong> – Length of the signal for each detector. </p></li>
+<li><p><strong>gps_time</strong> – GPS time of the signal. </p></li>
+<li><p><strong>detectors</strong> – Names of the detectors. </p></li>
+<li><p><strong>generation_method</strong> – Model name for the output waveforms. </p></li>
+<li><p><strong>mod_struct</strong> – <a class="reference internal" href="#structMCMC__modification__struct"><span class="std std-ref">MCMC_modification_struct</span></a></p></li>
+<li><p><strong>fiducial_out</strong> – [out] The fiducial signal. </p></li>
+<li><p><strong>test_out</strong> – [out] The signal at the final M-H step. </p></li>
+<li><p><strong>test_gp_out</strong> – [out] The parameters at the final M-H step. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-variables">Variables</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv414mcmc_intrinsic">
+<span id="_CPPv314mcmc_intrinsic"></span><span id="_CPPv214mcmc_intrinsic"></span><span id="mcmc_intrinsic__b"></span><span class="target" id="mcmc__gw_8h_1af41ec7ff680fbdb094c76654232eea7f"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mcmc_intrinsic</span></span></span><a class="headerlink" href="#_CPPv414mcmc_intrinsic" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv418mcmc_save_waveform">
+<span id="_CPPv318mcmc_save_waveform"></span><span id="_CPPv218mcmc_save_waveform"></span><span id="mcmc_save_waveform__b"></span><span class="target" id="mcmc__gw_8h_1a1d863360d834e74a469fbc0bdfd07501"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mcmc_save_waveform</span></span></span><a class="headerlink" href="#_CPPv418mcmc_save_waveform" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv424MCMC_modification_struct">
+<span id="_CPPv324MCMC_modification_struct"></span><span id="_CPPv224MCMC_modification_struct"></span><span id="MCMC_modification_struct"></span><span class="target" id="structMCMC__modification__struct"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MCMC_modification_struct</span></span></span><a class="headerlink" href="#_CPPv424MCMC_modification_struct" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;mcmc_gw.h&gt;</em></div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N24MCMC_modification_struct8ppE_NmodE">
+<span id="_CPPv3N24MCMC_modification_struct8ppE_NmodE"></span><span id="_CPPv2N24MCMC_modification_struct8ppE_NmodE"></span><span id="MCMC_modification_struct::ppE_Nmod__i"></span><span class="target" id="structMCMC__modification__struct_1a2fff76fa1a56a3be939d394789ec0315"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ppE_Nmod</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N24MCMC_modification_struct8ppE_NmodE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N24MCMC_modification_struct4bppeE">
+<span id="_CPPv3N24MCMC_modification_struct4bppeE"></span><span id="_CPPv2N24MCMC_modification_struct4bppeE"></span><span id="MCMC_modification_struct::bppe__doubleP"></span><span class="target" id="structMCMC__modification__struct_1a35d6b6798eaa7696c672e8d2b0047054"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">bppe</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><a class="headerlink" href="#_CPPv4N24MCMC_modification_struct4bppeE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N24MCMC_modification_struct13gIMR_Nmod_phiE">
+<span id="_CPPv3N24MCMC_modification_struct13gIMR_Nmod_phiE"></span><span id="_CPPv2N24MCMC_modification_struct13gIMR_Nmod_phiE"></span><span id="MCMC_modification_struct::gIMR_Nmod_phi__i"></span><span class="target" id="structMCMC__modification__struct_1af09709103235924ae490c964e74b5a43"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">gIMR_Nmod_phi</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N24MCMC_modification_struct13gIMR_Nmod_phiE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N24MCMC_modification_struct9gIMR_phiiE">
+<span id="_CPPv3N24MCMC_modification_struct9gIMR_phiiE"></span><span id="_CPPv2N24MCMC_modification_struct9gIMR_phiiE"></span><span id="MCMC_modification_struct::gIMR_phii__iP"></span><span class="target" id="structMCMC__modification__struct_1a68a96b2b7c42ff9fc408b0e830009653"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">gIMR_phii</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><a class="headerlink" href="#_CPPv4N24MCMC_modification_struct9gIMR_phiiE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N24MCMC_modification_struct15gIMR_Nmod_sigmaE">
+<span id="_CPPv3N24MCMC_modification_struct15gIMR_Nmod_sigmaE"></span><span id="_CPPv2N24MCMC_modification_struct15gIMR_Nmod_sigmaE"></span><span id="MCMC_modification_struct::gIMR_Nmod_sigma__i"></span><span class="target" id="structMCMC__modification__struct_1ab95ab41ec834c144be9cde1af8d0c3f5"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">gIMR_Nmod_sigma</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N24MCMC_modification_struct15gIMR_Nmod_sigmaE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N24MCMC_modification_struct11gIMR_sigmaiE">
+<span id="_CPPv3N24MCMC_modification_struct11gIMR_sigmaiE"></span><span id="_CPPv2N24MCMC_modification_struct11gIMR_sigmaiE"></span><span id="MCMC_modification_struct::gIMR_sigmai__iP"></span><span class="target" id="structMCMC__modification__struct_1a6b60cbd2cd3c3754114d0ae870e411ad"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">gIMR_sigmai</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><a class="headerlink" href="#_CPPv4N24MCMC_modification_struct11gIMR_sigmaiE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N24MCMC_modification_struct14gIMR_Nmod_betaE">
+<span id="_CPPv3N24MCMC_modification_struct14gIMR_Nmod_betaE"></span><span id="_CPPv2N24MCMC_modification_struct14gIMR_Nmod_betaE"></span><span id="MCMC_modification_struct::gIMR_Nmod_beta__i"></span><span class="target" id="structMCMC__modification__struct_1a0b0a90d07892afdce6008eefe35bfd32"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">gIMR_Nmod_beta</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N24MCMC_modification_struct14gIMR_Nmod_betaE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N24MCMC_modification_struct10gIMR_betaiE">
+<span id="_CPPv3N24MCMC_modification_struct10gIMR_betaiE"></span><span id="_CPPv2N24MCMC_modification_struct10gIMR_betaiE"></span><span id="MCMC_modification_struct::gIMR_betai__iP"></span><span class="target" id="structMCMC__modification__struct_1ab43b12675b47cf62ac67f1208286ab03"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">gIMR_betai</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><a class="headerlink" href="#_CPPv4N24MCMC_modification_struct10gIMR_betaiE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N24MCMC_modification_struct15gIMR_Nmod_alphaE">
+<span id="_CPPv3N24MCMC_modification_struct15gIMR_Nmod_alphaE"></span><span id="_CPPv2N24MCMC_modification_struct15gIMR_Nmod_alphaE"></span><span id="MCMC_modification_struct::gIMR_Nmod_alpha__i"></span><span class="target" id="structMCMC__modification__struct_1a69f6668a9ff00ec44de7af48989423d4"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">gIMR_Nmod_alpha</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N24MCMC_modification_struct15gIMR_Nmod_alphaE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N24MCMC_modification_struct11gIMR_alphaiE">
+<span id="_CPPv3N24MCMC_modification_struct11gIMR_alphaiE"></span><span id="_CPPv2N24MCMC_modification_struct11gIMR_alphaiE"></span><span id="MCMC_modification_struct::gIMR_alphai__iP"></span><span class="target" id="structMCMC__modification__struct_1a166ef1fceb7c1ad41767dc71ff8142ef"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">gIMR_alphai</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><a class="headerlink" href="#_CPPv4N24MCMC_modification_struct11gIMR_alphaiE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N24MCMC_modification_struct7NSflag1E">
+<span id="_CPPv3N24MCMC_modification_struct7NSflag1E"></span><span id="_CPPv2N24MCMC_modification_struct7NSflag1E"></span><span id="MCMC_modification_struct::NSflag1__b"></span><span class="target" id="structMCMC__modification__struct_1af0e1e7d85e08a3bac85f1e037c8943be"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NSflag1</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><a class="headerlink" href="#_CPPv4N24MCMC_modification_struct7NSflag1E" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N24MCMC_modification_struct7NSflag2E">
+<span id="_CPPv3N24MCMC_modification_struct7NSflag2E"></span><span id="_CPPv2N24MCMC_modification_struct7NSflag2E"></span><span id="MCMC_modification_struct::NSflag2__b"></span><span class="target" id="structMCMC__modification__struct_1a5b3445540c371ad7cf398291bffe1142"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NSflag2</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><a class="headerlink" href="#_CPPv4N24MCMC_modification_struct7NSflag2E" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N24MCMC_modification_struct13EOS_plat_flagE">
+<span id="_CPPv3N24MCMC_modification_struct13EOS_plat_flagE"></span><span id="_CPPv2N24MCMC_modification_struct13EOS_plat_flagE"></span><span id="MCMC_modification_struct::EOS_plat_flag__b"></span><span class="target" id="structMCMC__modification__struct_1a0fec0a9cef3320af647d251b5a65c183"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EOS_plat_flag</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><a class="headerlink" href="#_CPPv4N24MCMC_modification_struct13EOS_plat_flagE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N24MCMC_modification_struct10tidal_loveE">
+<span id="_CPPv3N24MCMC_modification_struct10tidal_loveE"></span><span id="_CPPv2N24MCMC_modification_struct10tidal_loveE"></span><span id="MCMC_modification_struct::tidal_love__b"></span><span class="target" id="structMCMC__modification__struct_1abed05973c8c611bf9d4f02805f3cbc13"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">tidal_love</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><a class="headerlink" href="#_CPPv4N24MCMC_modification_struct10tidal_loveE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N24MCMC_modification_struct16tidal_love_errorE">
+<span id="_CPPv3N24MCMC_modification_struct16tidal_love_errorE"></span><span id="_CPPv2N24MCMC_modification_struct16tidal_love_errorE"></span><span id="MCMC_modification_struct::tidal_love_error__b"></span><span class="target" id="structMCMC__modification__struct_1ada7a55cbd2f9f968b765d5368dbd5308"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">tidal_love_error</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><a class="headerlink" href="#_CPPv4N24MCMC_modification_struct16tidal_love_errorE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N24MCMC_modification_struct11alpha_paramE">
+<span id="_CPPv3N24MCMC_modification_struct11alpha_paramE"></span><span id="_CPPv2N24MCMC_modification_struct11alpha_paramE"></span><span id="MCMC_modification_struct::alpha_param__b"></span><span class="target" id="structMCMC__modification__struct_1a558237c3658b9bc5a74100f9a0a8c6c3"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">alpha_param</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><a class="headerlink" href="#_CPPv4N24MCMC_modification_struct11alpha_paramE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N24MCMC_modification_struct10EA_region1E">
+<span id="_CPPv3N24MCMC_modification_struct10EA_region1E"></span><span id="_CPPv2N24MCMC_modification_struct10EA_region1E"></span><span id="MCMC_modification_struct::EA_region1__b"></span><span class="target" id="structMCMC__modification__struct_1abbec68c2f5c4531d6273a89e431f9cb8"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EA_region1</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><a class="headerlink" href="#_CPPv4N24MCMC_modification_struct10EA_region1E" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N24MCMC_modification_struct10GAUSS_QUADE">
+<span id="_CPPv3N24MCMC_modification_struct10GAUSS_QUADE"></span><span id="_CPPv2N24MCMC_modification_struct10GAUSS_QUADE"></span><span id="MCMC_modification_struct::GAUSS_QUAD__b"></span><span class="target" id="structMCMC__modification__struct_1aea323d532fde19d153ffd72a4699329e"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GAUSS_QUAD</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><a class="headerlink" href="#_CPPv4N24MCMC_modification_struct10GAUSS_QUADE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N24MCMC_modification_struct6log10FE">
+<span id="_CPPv3N24MCMC_modification_struct6log10FE"></span><span id="_CPPv2N24MCMC_modification_struct6log10FE"></span><span id="MCMC_modification_struct::log10F__b"></span><span class="target" id="structMCMC__modification__struct_1abc111268e49d0bde7a8f5a2062e28c0f"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">log10F</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><a class="headerlink" href="#_CPPv4N24MCMC_modification_struct6log10FE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N24MCMC_modification_struct7weightsE">
+<span id="_CPPv3N24MCMC_modification_struct7weightsE"></span><span id="_CPPv2N24MCMC_modification_struct7weightsE"></span><span id="MCMC_modification_struct::weights__doublePP"></span><span class="target" id="structMCMC__modification__struct_1a660b9b88686239ebe65e5fa49c7c9b25"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">weights</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><a class="headerlink" href="#_CPPv4N24MCMC_modification_struct7weightsE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N24MCMC_modification_struct11fisher_freqE">
+<span id="_CPPv3N24MCMC_modification_struct11fisher_freqE"></span><span id="_CPPv2N24MCMC_modification_struct11fisher_freqE"></span><span id="MCMC_modification_struct::fisher_freq__doublePP"></span><span class="target" id="structMCMC__modification__struct_1a2f17a255e6a8cc69378075f2fe700cb7"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">fisher_freq</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><a class="headerlink" href="#_CPPv4N24MCMC_modification_struct11fisher_freqE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N24MCMC_modification_struct14fisher_weightsE">
+<span id="_CPPv3N24MCMC_modification_struct14fisher_weightsE"></span><span id="_CPPv2N24MCMC_modification_struct14fisher_weightsE"></span><span id="MCMC_modification_struct::fisher_weights__doublePP"></span><span class="target" id="structMCMC__modification__struct_1a956674f6d78dfc17ae96cbe379e9396e"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">fisher_weights</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><a class="headerlink" href="#_CPPv4N24MCMC_modification_struct14fisher_weightsE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N24MCMC_modification_struct10fisher_PSDE">
+<span id="_CPPv3N24MCMC_modification_struct10fisher_PSDE"></span><span id="_CPPv2N24MCMC_modification_struct10fisher_PSDE"></span><span id="MCMC_modification_struct::fisher_PSD__doublePP"></span><span class="target" id="structMCMC__modification__struct_1aa4090ef52c213acdc3a3867ea936a886"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">fisher_PSD</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><a class="headerlink" href="#_CPPv4N24MCMC_modification_struct10fisher_PSDE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N24MCMC_modification_struct17fisher_GAUSS_QUADE">
+<span id="_CPPv3N24MCMC_modification_struct17fisher_GAUSS_QUADE"></span><span id="_CPPv2N24MCMC_modification_struct17fisher_GAUSS_QUADE"></span><span id="MCMC_modification_struct::fisher_GAUSS_QUAD__b"></span><span class="target" id="structMCMC__modification__struct_1a07f20aa5efe656f126d2f912907cd33e"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">fisher_GAUSS_QUAD</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><a class="headerlink" href="#_CPPv4N24MCMC_modification_struct17fisher_GAUSS_QUADE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N24MCMC_modification_struct13fisher_lengthE">
+<span id="_CPPv3N24MCMC_modification_struct13fisher_lengthE"></span><span id="_CPPv2N24MCMC_modification_struct13fisher_lengthE"></span><span id="MCMC_modification_struct::fisher_length__iP"></span><span class="target" id="structMCMC__modification__struct_1a48f0b25554667101f56590fce57567a2"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">fisher_length</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><a class="headerlink" href="#_CPPv4N24MCMC_modification_struct13fisher_lengthE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N24MCMC_modification_struct13fisher_log10FE">
+<span id="_CPPv3N24MCMC_modification_struct13fisher_log10FE"></span><span id="_CPPv2N24MCMC_modification_struct13fisher_log10FE"></span><span id="MCMC_modification_struct::fisher_log10F__b"></span><span class="target" id="structMCMC__modification__struct_1a09fba2e2ae3d8e1e88721bce1e7119bd"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">fisher_log10F</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><a class="headerlink" href="#_CPPv4N24MCMC_modification_struct13fisher_log10FE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N24MCMC_modification_struct10QuadMethodE">
+<span id="_CPPv3N24MCMC_modification_struct10QuadMethodE"></span><span id="_CPPv2N24MCMC_modification_struct10QuadMethodE"></span><span id="MCMC_modification_struct::QuadMethod__QuadratureP"></span><span class="target" id="structMCMC__modification__struct_1a620ecb04fa9478a7b9f1a34d930b8479"></span><span class="n"><span class="pre">Quadrature</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">QuadMethod</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><a class="headerlink" href="#_CPPv4N24MCMC_modification_struct10QuadMethodE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N24MCMC_modification_struct10adaptivellE">
+<span id="_CPPv3N24MCMC_modification_struct10adaptivellE"></span><span id="_CPPv2N24MCMC_modification_struct10adaptivellE"></span><span id="MCMC_modification_struct::adaptivell__GWATLikelihoods::LikelihoodP"></span><span class="target" id="structMCMC__modification__struct_1a1d1f1e638f3c39d4e528ebc37de59657"></span><span class="n"><span class="pre">GWATLikelihoods</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Likelihood</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">adaptivell</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><a class="headerlink" href="#_CPPv4N24MCMC_modification_struct10adaptivellE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N24MCMC_modification_struct5f_refE">
+<span id="_CPPv3N24MCMC_modification_struct5f_refE"></span><span id="_CPPv2N24MCMC_modification_struct5f_refE"></span><span id="MCMC_modification_struct::f_ref__double"></span><span class="target" id="structMCMC__modification__struct_1ae7a16ae067e8dc8b00d8fa6335a70006"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">f_ref</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">20.</span></span><a class="headerlink" href="#_CPPv4N24MCMC_modification_struct5f_refE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N24MCMC_modification_struct4TmaxE">
+<span id="_CPPv3N24MCMC_modification_struct4TmaxE"></span><span id="_CPPv2N24MCMC_modification_struct4TmaxE"></span><span id="MCMC_modification_struct::Tmax__double"></span><span class="target" id="structMCMC__modification__struct_1aa7b337896a511f152a71f208435c9c8b"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Tmax</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">100.</span></span><a class="headerlink" href="#_CPPv4N24MCMC_modification_struct4TmaxE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N24MCMC_modification_struct2t0E">
+<span id="_CPPv3N24MCMC_modification_struct2t0E"></span><span id="_CPPv2N24MCMC_modification_struct2t0E"></span><span id="MCMC_modification_struct::t0__double"></span><span class="target" id="structMCMC__modification__struct_1a009e12cd66389c9bce0fb333328f711b"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">t0</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0.</span></span><a class="headerlink" href="#_CPPv4N24MCMC_modification_struct2t0E" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N24MCMC_modification_struct2nuE">
+<span id="_CPPv3N24MCMC_modification_struct2nuE"></span><span id="_CPPv2N24MCMC_modification_struct2nuE"></span><span id="MCMC_modification_struct::nu__double"></span><span class="target" id="structMCMC__modification__struct_1a310afa3de8ed17874ece84343d090355"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">nu</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">100.</span></span><a class="headerlink" href="#_CPPv4N24MCMC_modification_struct2nuE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv415MCMC_user_param">
+<span id="_CPPv315MCMC_user_param"></span><span id="_CPPv215MCMC_user_param"></span><span id="MCMC_user_param"></span><span class="target" id="structMCMC__user__param"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MCMC_user_param</span></span></span><a class="headerlink" href="#_CPPv415MCMC_user_param" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;mcmc_gw.h&gt;</em></div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15MCMC_user_param9burn_dataE">
+<span id="_CPPv3N15MCMC_user_param9burn_dataE"></span><span id="_CPPv2N15MCMC_user_param9burn_dataE"></span><span id="MCMC_user_param::burn_data__std::complex:double:PP"></span><span class="target" id="structMCMC__user__param_1adbe1d9586e47cf81495cb314f6153acd"></span><a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">complex</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">burn_data</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><a class="headerlink" href="#_CPPv4N15MCMC_user_param9burn_dataE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15MCMC_user_param10burn_noiseE">
+<span id="_CPPv3N15MCMC_user_param10burn_noiseE"></span><span id="_CPPv2N15MCMC_user_param10burn_noiseE"></span><span id="MCMC_user_param::burn_noise__doublePP"></span><span class="target" id="structMCMC__user__param_1ab675f7711ceaf46dad0d14c3e319775c"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">burn_noise</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><a class="headerlink" href="#_CPPv4N15MCMC_user_param10burn_noiseE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15MCMC_user_param10burn_freqsE">
+<span id="_CPPv3N15MCMC_user_param10burn_freqsE"></span><span id="_CPPv2N15MCMC_user_param10burn_freqsE"></span><span id="MCMC_user_param::burn_freqs__doublePP"></span><span class="target" id="structMCMC__user__param_1a1de3e2f997a3af2f87575ee31cd81d08"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">burn_freqs</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><a class="headerlink" href="#_CPPv4N15MCMC_user_param10burn_freqsE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15MCMC_user_param12burn_lengthsE">
+<span id="_CPPv3N15MCMC_user_param12burn_lengthsE"></span><span id="_CPPv2N15MCMC_user_param12burn_lengthsE"></span><span id="MCMC_user_param::burn_lengths__iP"></span><span class="target" id="structMCMC__user__param_1a93b7ff1f7a2421d987b2d31d7bb65829"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">burn_lengths</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><a class="headerlink" href="#_CPPv4N15MCMC_user_param12burn_lengthsE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15MCMC_user_param10burn_plansE">
+<span id="_CPPv3N15MCMC_user_param10burn_plansE"></span><span id="_CPPv2N15MCMC_user_param10burn_plansE"></span><span id="MCMC_user_param::burn_plans__fftw_outlineP"></span><span class="target" id="structMCMC__user__param_1a6a5362756885ea9ee5e469614a0e044d"></span><a class="reference internal" href="util.html#_CPPv412fftw_outline" title="fftw_outline"><span class="n"><span class="pre">fftw_outline</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">burn_plans</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><a class="headerlink" href="#_CPPv4N15MCMC_user_param10burn_plansE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15MCMC_user_param5mFishE">
+<span id="_CPPv3N15MCMC_user_param5mFishE"></span><span id="_CPPv2N15MCMC_user_param5mFishE"></span><span id="MCMC_user_param::mFish__std::mutexP"></span><span class="target" id="structMCMC__user__param_1abcf1d88c8fa2209a72597dd530a77e8d"></span><a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">mutex</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mFish</span></span></span><a class="headerlink" href="#_CPPv4N15MCMC_user_param5mFishE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15MCMC_user_param10GAUSS_QUADE">
+<span id="_CPPv3N15MCMC_user_param10GAUSS_QUADE"></span><span id="_CPPv2N15MCMC_user_param10GAUSS_QUADE"></span><span id="MCMC_user_param::GAUSS_QUAD__b"></span><span class="target" id="structMCMC__user__param_1a390055080a5839f83bd56a78215e451c"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GAUSS_QUAD</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><a class="headerlink" href="#_CPPv4N15MCMC_user_param10GAUSS_QUADE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15MCMC_user_param6log10FE">
+<span id="_CPPv3N15MCMC_user_param6log10FE"></span><span id="_CPPv2N15MCMC_user_param6log10FE"></span><span id="MCMC_user_param::log10F__b"></span><span class="target" id="structMCMC__user__param_1a100a2e5e00c19b3bcc45bd014f506155"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">log10F</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><a class="headerlink" href="#_CPPv4N15MCMC_user_param6log10FE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15MCMC_user_param7weightsE">
+<span id="_CPPv3N15MCMC_user_param7weightsE"></span><span id="_CPPv2N15MCMC_user_param7weightsE"></span><span id="MCMC_user_param::weights__doublePP"></span><span class="target" id="structMCMC__user__param_1aaf561325a32d06cbcb16dbf02cc051a2"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">weights</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><a class="headerlink" href="#_CPPv4N15MCMC_user_param7weightsE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15MCMC_user_param11fisher_freqE">
+<span id="_CPPv3N15MCMC_user_param11fisher_freqE"></span><span id="_CPPv2N15MCMC_user_param11fisher_freqE"></span><span id="MCMC_user_param::fisher_freq__doublePP"></span><span class="target" id="structMCMC__user__param_1aed1794e886eaf59c0069b3e683358637"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">fisher_freq</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><a class="headerlink" href="#_CPPv4N15MCMC_user_param11fisher_freqE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15MCMC_user_param14fisher_weightsE">
+<span id="_CPPv3N15MCMC_user_param14fisher_weightsE"></span><span id="_CPPv2N15MCMC_user_param14fisher_weightsE"></span><span id="MCMC_user_param::fisher_weights__doublePP"></span><span class="target" id="structMCMC__user__param_1aef9b06bb32275491b9d79325bbfea24a"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">fisher_weights</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><a class="headerlink" href="#_CPPv4N15MCMC_user_param14fisher_weightsE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15MCMC_user_param10fisher_PSDE">
+<span id="_CPPv3N15MCMC_user_param10fisher_PSDE"></span><span id="_CPPv2N15MCMC_user_param10fisher_PSDE"></span><span id="MCMC_user_param::fisher_PSD__doublePP"></span><span class="target" id="structMCMC__user__param_1aaacef10d1bc23a1e49f2d057d23b7e9f"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">fisher_PSD</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><a class="headerlink" href="#_CPPv4N15MCMC_user_param10fisher_PSDE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15MCMC_user_param9fisher_ADE">
+<span id="_CPPv3N15MCMC_user_param9fisher_ADE"></span><span id="_CPPv2N15MCMC_user_param9fisher_ADE"></span><span id="MCMC_user_param::fisher_AD__b"></span><span class="target" id="structMCMC__user__param_1a1153176494bfe4dc941f06116ee3e49a"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">fisher_AD</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><a class="headerlink" href="#_CPPv4N15MCMC_user_param9fisher_ADE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15MCMC_user_param17fisher_GAUSS_QUADE">
+<span id="_CPPv3N15MCMC_user_param17fisher_GAUSS_QUADE"></span><span id="_CPPv2N15MCMC_user_param17fisher_GAUSS_QUADE"></span><span id="MCMC_user_param::fisher_GAUSS_QUAD__b"></span><span class="target" id="structMCMC__user__param_1a148265b31572e8b561f6f3db6fd309e3"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">fisher_GAUSS_QUAD</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><a class="headerlink" href="#_CPPv4N15MCMC_user_param17fisher_GAUSS_QUADE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15MCMC_user_param13fisher_lengthE">
+<span id="_CPPv3N15MCMC_user_param13fisher_lengthE"></span><span id="_CPPv2N15MCMC_user_param13fisher_lengthE"></span><span id="MCMC_user_param::fisher_length__iP"></span><span class="target" id="structMCMC__user__param_1a502d5f0f106d305b45274ff6f9fe0b20"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">fisher_length</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><a class="headerlink" href="#_CPPv4N15MCMC_user_param13fisher_lengthE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15MCMC_user_param13fisher_log10FE">
+<span id="_CPPv3N15MCMC_user_param13fisher_log10FE"></span><span id="_CPPv2N15MCMC_user_param13fisher_log10FE"></span><span id="MCMC_user_param::fisher_log10F__b"></span><span class="target" id="structMCMC__user__param_1a611a449e8a89f86a3d44b15e9c771cba"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">fisher_log10F</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><a class="headerlink" href="#_CPPv4N15MCMC_user_param13fisher_log10FE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15MCMC_user_param10QuadMethodE">
+<span id="_CPPv3N15MCMC_user_param10QuadMethodE"></span><span id="_CPPv2N15MCMC_user_param10QuadMethodE"></span><span id="MCMC_user_param::QuadMethod__QuadratureP"></span><span class="target" id="structMCMC__user__param_1ac0e4b0586648231d73678c061ab212e6"></span><span class="n"><span class="pre">Quadrature</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">QuadMethod</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><a class="headerlink" href="#_CPPv4N15MCMC_user_param10QuadMethodE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15MCMC_user_param16mod_prior_rangesE">
+<span id="_CPPv3N15MCMC_user_param16mod_prior_rangesE"></span><span id="_CPPv2N15MCMC_user_param16mod_prior_rangesE"></span><span id="MCMC_user_param::mod_prior_ranges__doublePP"></span><span class="target" id="structMCMC__user__param_1a059293069d7b166afa1c99678bf70cb1"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mod_prior_ranges</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><a class="headerlink" href="#_CPPv4N15MCMC_user_param16mod_prior_rangesE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15MCMC_user_param10mod_structE">
+<span id="_CPPv3N15MCMC_user_param10mod_structE"></span><span id="_CPPv2N15MCMC_user_param10mod_structE"></span><span id="MCMC_user_param::mod_struct__MCMC_modification_structP"></span><span class="target" id="structMCMC__user__param_1a98f7aaf371194f6111c575104fd51f13"></span><a class="reference internal" href="#_CPPv424MCMC_modification_struct" title="MCMC_modification_struct"><span class="n"><span class="pre">MCMC_modification_struct</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mod_struct</span></span></span><a class="headerlink" href="#_CPPv4N15MCMC_user_param10mod_structE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15MCMC_user_param1rE">
+<span id="_CPPv3N15MCMC_user_param1rE"></span><span id="_CPPv2N15MCMC_user_param1rE"></span><span id="MCMC_user_param::r__gsl_rngP"></span><span class="target" id="structMCMC__user__param_1aba408062cb22315c367058859ae5c1e6"></span><span class="n"><span class="pre">gsl_rng</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">r</span></span></span><a class="headerlink" href="#_CPPv4N15MCMC_user_param1rE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv413mcmcVariables">
+<span id="_CPPv313mcmcVariables"></span><span id="_CPPv213mcmcVariables"></span><span id="mcmcVariables"></span><span class="target" id="structmcmcVariables"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mcmcVariables</span></span></span><a class="headerlink" href="#_CPPv413mcmcVariables" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;mcmc_gw.h&gt;</em></div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N13mcmcVariables10mcmc_noiseE">
+<span id="_CPPv3N13mcmcVariables10mcmc_noiseE"></span><span id="_CPPv2N13mcmcVariables10mcmc_noiseE"></span><span id="mcmcVariables::mcmc_noise__doublePP"></span><span class="target" id="structmcmcVariables_1ab076b260c672dc9a74dae8bbaff05837"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mcmc_noise</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><a class="headerlink" href="#_CPPv4N13mcmcVariables10mcmc_noiseE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N13mcmcVariables13mcmc_init_posE">
+<span id="_CPPv3N13mcmcVariables13mcmc_init_posE"></span><span id="_CPPv2N13mcmcVariables13mcmc_init_posE"></span><span id="mcmcVariables::mcmc_init_pos__doubleP"></span><span class="target" id="structmcmcVariables_1ac959e48ffbb3dd6b2ea0ca8517ad3baf"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mcmc_init_pos</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><a class="headerlink" href="#_CPPv4N13mcmcVariables13mcmc_init_posE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N13mcmcVariables9mcmc_dataE">
+<span id="_CPPv3N13mcmcVariables9mcmc_dataE"></span><span id="_CPPv2N13mcmcVariables9mcmc_dataE"></span><span id="mcmcVariables::mcmc_data__std::complex:double:PP"></span><span class="target" id="structmcmcVariables_1a8c02da4ac880c97bfd973b22f121d8e8"></span><a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">complex</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mcmc_data</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><a class="headerlink" href="#_CPPv4N13mcmcVariables9mcmc_dataE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N13mcmcVariables16mcmc_frequenciesE">
+<span id="_CPPv3N13mcmcVariables16mcmc_frequenciesE"></span><span id="_CPPv2N13mcmcVariables16mcmc_frequenciesE"></span><span id="mcmcVariables::mcmc_frequencies__doublePP"></span><span class="target" id="structmcmcVariables_1a765aadc89e8c72111035af42bfa34e02"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mcmc_frequencies</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><a class="headerlink" href="#_CPPv4N13mcmcVariables16mcmc_frequenciesE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N13mcmcVariables14mcmc_detectorsE">
+<span id="_CPPv3N13mcmcVariables14mcmc_detectorsE"></span><span id="_CPPv2N13mcmcVariables14mcmc_detectorsE"></span><span id="mcmcVariables::mcmc_detectors__ssP"></span><span class="target" id="structmcmcVariables_1ae94dc1c5c713092d1459fcba1b770e65"></span><a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mcmc_detectors</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><a class="headerlink" href="#_CPPv4N13mcmcVariables14mcmc_detectorsE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N13mcmcVariables22mcmc_generation_methodE">
+<span id="_CPPv3N13mcmcVariables22mcmc_generation_methodE"></span><span id="_CPPv2N13mcmcVariables22mcmc_generation_methodE"></span><span id="mcmcVariables::mcmc_generation_method__ss"></span><span class="target" id="structmcmcVariables_1af3a84bb46f27deffa72d2b5498c1302f"></span><a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mcmc_generation_method</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;&quot;</span></span><a class="headerlink" href="#_CPPv4N13mcmcVariables22mcmc_generation_methodE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N13mcmcVariables16mcmc_data_lengthE">
+<span id="_CPPv3N13mcmcVariables16mcmc_data_lengthE"></span><span id="_CPPv2N13mcmcVariables16mcmc_data_lengthE"></span><span id="mcmcVariables::mcmc_data_length__iP"></span><span class="target" id="structmcmcVariables_1a9eaca6c0421ceab72eb5d4fe5add7a30"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mcmc_data_length</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><a class="headerlink" href="#_CPPv4N13mcmcVariables16mcmc_data_lengthE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N13mcmcVariables15mcmc_fftw_plansE">
+<span id="_CPPv3N13mcmcVariables15mcmc_fftw_plansE"></span><span id="_CPPv2N13mcmcVariables15mcmc_fftw_plansE"></span><span id="mcmcVariables::mcmc_fftw_plans__fftw_outlineP"></span><span class="target" id="structmcmcVariables_1ad3dcd018524775474804862f0f736211"></span><a class="reference internal" href="util.html#_CPPv412fftw_outline" title="fftw_outline"><span class="n"><span class="pre">fftw_outline</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mcmc_fftw_plans</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><a class="headerlink" href="#_CPPv4N13mcmcVariables15mcmc_fftw_plansE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N13mcmcVariables18mcmc_num_detectorsE">
+<span id="_CPPv3N13mcmcVariables18mcmc_num_detectorsE"></span><span id="_CPPv2N13mcmcVariables18mcmc_num_detectorsE"></span><span id="mcmcVariables::mcmc_num_detectors__i"></span><span class="target" id="structmcmcVariables_1afc4c715efe0b8fde975e850d09e09013"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mcmc_num_detectors</span></span></span><a class="headerlink" href="#_CPPv4N13mcmcVariables18mcmc_num_detectorsE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N13mcmcVariables13mcmc_gps_timeE">
+<span id="_CPPv3N13mcmcVariables13mcmc_gps_timeE"></span><span id="_CPPv2N13mcmcVariables13mcmc_gps_timeE"></span><span id="mcmcVariables::mcmc_gps_time__double"></span><span class="target" id="structmcmcVariables_1a8a51eb27b31c34747219ef055c84623d"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mcmc_gps_time</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N13mcmcVariables13mcmc_gps_timeE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N13mcmcVariables9mcmc_gmstE">
+<span id="_CPPv3N13mcmcVariables9mcmc_gmstE"></span><span id="_CPPv2N13mcmcVariables9mcmc_gmstE"></span><span id="mcmcVariables::mcmc_gmst__double"></span><span class="target" id="structmcmcVariables_1a1ee41ca11325761475fac27f881a163d"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mcmc_gmst</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N13mcmcVariables9mcmc_gmstE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N13mcmcVariables12mcmc_max_dimE">
+<span id="_CPPv3N13mcmcVariables12mcmc_max_dimE"></span><span id="_CPPv2N13mcmcVariables12mcmc_max_dimE"></span><span id="mcmcVariables::mcmc_max_dim__i"></span><span class="target" id="structmcmcVariables_1a403be32a6f8b3e3e99034adf9c2ab8c3"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mcmc_max_dim</span></span></span><a class="headerlink" href="#_CPPv4N13mcmcVariables12mcmc_max_dimE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N13mcmcVariables12mcmc_min_dimE">
+<span id="_CPPv3N13mcmcVariables12mcmc_min_dimE"></span><span id="_CPPv2N13mcmcVariables12mcmc_min_dimE"></span><span id="mcmcVariables::mcmc_min_dim__i"></span><span class="target" id="structmcmcVariables_1a02220b2735412f1d232404848ccc0783"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mcmc_min_dim</span></span></span><a class="headerlink" href="#_CPPv4N13mcmcVariables12mcmc_min_dimE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N13mcmcVariables15mcmc_mod_structE">
+<span id="_CPPv3N13mcmcVariables15mcmc_mod_structE"></span><span id="_CPPv2N13mcmcVariables15mcmc_mod_structE"></span><span id="mcmcVariables::mcmc_mod_struct__MCMC_modification_structP"></span><span class="target" id="structmcmcVariables_1a44240c9de6331d34a80dfd42ed1dda7d"></span><a class="reference internal" href="#_CPPv424MCMC_modification_struct" title="MCMC_modification_struct"><span class="n"><span class="pre">MCMC_modification_struct</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mcmc_mod_struct</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><a class="headerlink" href="#_CPPv4N13mcmcVariables15mcmc_mod_structE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N13mcmcVariables18mcmc_save_waveformE">
+<span id="_CPPv3N13mcmcVariables18mcmc_save_waveformE"></span><span id="_CPPv2N13mcmcVariables18mcmc_save_waveformE"></span><span id="mcmcVariables::mcmc_save_waveform__b"></span><span class="target" id="structmcmcVariables_1a6e759fa664709d67316a8dbaead90175"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mcmc_save_waveform</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><a class="headerlink" href="#_CPPv4N13mcmcVariables18mcmc_save_waveformE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N13mcmcVariables14mcmc_intrinsicE">
+<span id="_CPPv3N13mcmcVariables14mcmc_intrinsicE"></span><span id="_CPPv2N13mcmcVariables14mcmc_intrinsicE"></span><span id="mcmcVariables::mcmc_intrinsic__b"></span><span class="target" id="structmcmcVariables_1aad7e071592e1c2408e27240f13373fe0"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mcmc_intrinsic</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><a class="headerlink" href="#_CPPv4N13mcmcVariables14mcmc_intrinsicE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N13mcmcVariables16mcmc_deriv_orderE">
+<span id="_CPPv3N13mcmcVariables16mcmc_deriv_orderE"></span><span id="_CPPv2N13mcmcVariables16mcmc_deriv_orderE"></span><span id="mcmcVariables::mcmc_deriv_order__i"></span><span class="target" id="structmcmcVariables_1a912f171e0db3abcb998ca5ec8aa70079"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mcmc_deriv_order</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">4</span></span><a class="headerlink" href="#_CPPv4N13mcmcVariables16mcmc_deriv_orderE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N13mcmcVariables13mcmc_log_betaE">
+<span id="_CPPv3N13mcmcVariables13mcmc_log_betaE"></span><span id="_CPPv2N13mcmcVariables13mcmc_log_betaE"></span><span id="mcmcVariables::mcmc_log_beta__b"></span><span class="target" id="structmcmcVariables_1a4da74c602e7cfb583720ebcfd00b3f59"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mcmc_log_beta</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><a class="headerlink" href="#_CPPv4N13mcmcVariables13mcmc_log_betaE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N13mcmcVariables15user_parametersE">
+<span id="_CPPv3N13mcmcVariables15user_parametersE"></span><span id="_CPPv2N13mcmcVariables15user_parametersE"></span><span id="mcmcVariables::user_parameters__MCMC_user_paramP"></span><span class="target" id="structmcmcVariables_1a4c948ec6445d1afe1ff9b7f2580be403"></span><a class="reference internal" href="#_CPPv415MCMC_user_param" title="MCMC_user_param"><span class="n"><span class="pre">MCMC_user_param</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">user_parameters</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><a class="headerlink" href="#_CPPv4N13mcmcVariables15user_parametersE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N13mcmcVariables6maxDimE">
+<span id="_CPPv3N13mcmcVariables6maxDimE"></span><span id="_CPPv2N13mcmcVariables6maxDimE"></span><span id="mcmcVariables::maxDim__double"></span><span class="target" id="structmcmcVariables_1a98777bb92442766f66c5e15c019590ce"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">maxDim</span></span></span><a class="headerlink" href="#_CPPv4N13mcmcVariables6maxDimE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N13mcmcVariables13mcmc_adaptiveE">
+<span id="_CPPv3N13mcmcVariables13mcmc_adaptiveE"></span><span id="_CPPv2N13mcmcVariables13mcmc_adaptiveE"></span><span id="mcmcVariables::mcmc_adaptive__b"></span><span class="target" id="structmcmcVariables_1abab3fe87d3e2416d520ddd942af3d1c2"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mcmc_adaptive</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><a class="headerlink" href="#_CPPv4N13mcmcVariables13mcmc_adaptiveE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N13mcmcVariables10adaptivellE">
+<span id="_CPPv3N13mcmcVariables10adaptivellE"></span><span id="_CPPv2N13mcmcVariables10adaptivellE"></span><span id="mcmcVariables::adaptivell__GWATLikelihoods::LikelihoodP"></span><span class="target" id="structmcmcVariables_1a617049b908189b4476b5e393b2594c4a"></span><span class="n"><span class="pre">GWATLikelihoods</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Likelihood</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">adaptivell</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><a class="headerlink" href="#_CPPv4N13mcmcVariables10adaptivellE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N13mcmcVariables10QuadMethodE">
+<span id="_CPPv3N13mcmcVariables10QuadMethodE"></span><span id="_CPPv2N13mcmcVariables10QuadMethodE"></span><span id="mcmcVariables::QuadMethod__QuadratureP"></span><span class="target" id="structmcmcVariables_1afc54cea71a2071ef933a883c075b1080"></span><span class="n"><span class="pre">Quadrature</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">QuadMethod</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><a class="headerlink" href="#_CPPv4N13mcmcVariables10QuadMethodE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv415mcmcVariablesRJ">
+<span id="_CPPv315mcmcVariablesRJ"></span><span id="_CPPv215mcmcVariablesRJ"></span><span id="mcmcVariablesRJ"></span><span class="target" id="structmcmcVariablesRJ"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mcmcVariablesRJ</span></span></span><a class="headerlink" href="#_CPPv415mcmcVariablesRJ" title="Link to this definition"></a><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;mcmc_gw.h&gt;</em></div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15mcmcVariablesRJ10mcmc_noiseE">
+<span id="_CPPv3N15mcmcVariablesRJ10mcmc_noiseE"></span><span id="_CPPv2N15mcmcVariablesRJ10mcmc_noiseE"></span><span id="mcmcVariablesRJ::mcmc_noise__doublePP"></span><span class="target" id="structmcmcVariablesRJ_1a723bac6ed208b176483dbd1565c2f6aa"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mcmc_noise</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><a class="headerlink" href="#_CPPv4N15mcmcVariablesRJ10mcmc_noiseE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15mcmcVariablesRJ13mcmc_init_posE">
+<span id="_CPPv3N15mcmcVariablesRJ13mcmc_init_posE"></span><span id="_CPPv2N15mcmcVariablesRJ13mcmc_init_posE"></span><span id="mcmcVariablesRJ::mcmc_init_pos__doubleP"></span><span class="target" id="structmcmcVariablesRJ_1a3bb8cde533cc5565e98677cc078761e1"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mcmc_init_pos</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><a class="headerlink" href="#_CPPv4N15mcmcVariablesRJ13mcmc_init_posE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15mcmcVariablesRJ9mcmc_dataE">
+<span id="_CPPv3N15mcmcVariablesRJ9mcmc_dataE"></span><span id="_CPPv2N15mcmcVariablesRJ9mcmc_dataE"></span><span id="mcmcVariablesRJ::mcmc_data__std::complex:double:PP"></span><span class="target" id="structmcmcVariablesRJ_1a3baaeab8d905f17ad72c77c5e443e334"></span><a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">complex</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mcmc_data</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><a class="headerlink" href="#_CPPv4N15mcmcVariablesRJ9mcmc_dataE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15mcmcVariablesRJ16mcmc_frequenciesE">
+<span id="_CPPv3N15mcmcVariablesRJ16mcmc_frequenciesE"></span><span id="_CPPv2N15mcmcVariablesRJ16mcmc_frequenciesE"></span><span id="mcmcVariablesRJ::mcmc_frequencies__doublePP"></span><span class="target" id="structmcmcVariablesRJ_1a1647fe6e7b36becfdbd154d9d121c973"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mcmc_frequencies</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><a class="headerlink" href="#_CPPv4N15mcmcVariablesRJ16mcmc_frequenciesE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15mcmcVariablesRJ14mcmc_detectorsE">
+<span id="_CPPv3N15mcmcVariablesRJ14mcmc_detectorsE"></span><span id="_CPPv2N15mcmcVariablesRJ14mcmc_detectorsE"></span><span id="mcmcVariablesRJ::mcmc_detectors__ssP"></span><span class="target" id="structmcmcVariablesRJ_1aa6ec21f3266e5020ff5de20a638ec268"></span><a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mcmc_detectors</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><a class="headerlink" href="#_CPPv4N15mcmcVariablesRJ14mcmc_detectorsE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15mcmcVariablesRJ22mcmc_generation_methodE">
+<span id="_CPPv3N15mcmcVariablesRJ22mcmc_generation_methodE"></span><span id="_CPPv2N15mcmcVariablesRJ22mcmc_generation_methodE"></span><span id="mcmcVariablesRJ::mcmc_generation_method__ss"></span><span class="target" id="structmcmcVariablesRJ_1aedfb27ff9cef7c01b208f5d8dfc02fff"></span><a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mcmc_generation_method</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;&quot;</span></span><a class="headerlink" href="#_CPPv4N15mcmcVariablesRJ22mcmc_generation_methodE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15mcmcVariablesRJ31mcmc_generation_method_extendedE">
+<span id="_CPPv3N15mcmcVariablesRJ31mcmc_generation_method_extendedE"></span><span id="_CPPv2N15mcmcVariablesRJ31mcmc_generation_method_extendedE"></span><span id="mcmcVariablesRJ::mcmc_generation_method_extended__ss"></span><span class="target" id="structmcmcVariablesRJ_1a11b3aaf217bd704be8fb5335d24ee065"></span><a class="reference internal" href="fisher.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mcmc_generation_method_extended</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;&quot;</span></span><a class="headerlink" href="#_CPPv4N15mcmcVariablesRJ31mcmc_generation_method_extendedE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15mcmcVariablesRJ16mcmc_data_lengthE">
+<span id="_CPPv3N15mcmcVariablesRJ16mcmc_data_lengthE"></span><span id="_CPPv2N15mcmcVariablesRJ16mcmc_data_lengthE"></span><span id="mcmcVariablesRJ::mcmc_data_length__iP"></span><span class="target" id="structmcmcVariablesRJ_1a4ea5141cdecc53528fc938cb36f051ef"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mcmc_data_length</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><a class="headerlink" href="#_CPPv4N15mcmcVariablesRJ16mcmc_data_lengthE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15mcmcVariablesRJ15mcmc_fftw_plansE">
+<span id="_CPPv3N15mcmcVariablesRJ15mcmc_fftw_plansE"></span><span id="_CPPv2N15mcmcVariablesRJ15mcmc_fftw_plansE"></span><span id="mcmcVariablesRJ::mcmc_fftw_plans__fftw_outlineP"></span><span class="target" id="structmcmcVariablesRJ_1a32890b2ddd092ebe9d3db40e7caf43f2"></span><a class="reference internal" href="util.html#_CPPv412fftw_outline" title="fftw_outline"><span class="n"><span class="pre">fftw_outline</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mcmc_fftw_plans</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><a class="headerlink" href="#_CPPv4N15mcmcVariablesRJ15mcmc_fftw_plansE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15mcmcVariablesRJ18mcmc_num_detectorsE">
+<span id="_CPPv3N15mcmcVariablesRJ18mcmc_num_detectorsE"></span><span id="_CPPv2N15mcmcVariablesRJ18mcmc_num_detectorsE"></span><span id="mcmcVariablesRJ::mcmc_num_detectors__i"></span><span class="target" id="structmcmcVariablesRJ_1a2d19bf44ccf9edd63e58e037e820d75a"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mcmc_num_detectors</span></span></span><a class="headerlink" href="#_CPPv4N15mcmcVariablesRJ18mcmc_num_detectorsE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15mcmcVariablesRJ13mcmc_gps_timeE">
+<span id="_CPPv3N15mcmcVariablesRJ13mcmc_gps_timeE"></span><span id="_CPPv2N15mcmcVariablesRJ13mcmc_gps_timeE"></span><span id="mcmcVariablesRJ::mcmc_gps_time__double"></span><span class="target" id="structmcmcVariablesRJ_1a779c5023a16ae431bbb856867ebad0e1"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mcmc_gps_time</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N15mcmcVariablesRJ13mcmc_gps_timeE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15mcmcVariablesRJ9mcmc_gmstE">
+<span id="_CPPv3N15mcmcVariablesRJ9mcmc_gmstE"></span><span id="_CPPv2N15mcmcVariablesRJ9mcmc_gmstE"></span><span id="mcmcVariablesRJ::mcmc_gmst__double"></span><span class="target" id="structmcmcVariablesRJ_1a77d3204305c6ce894b277b302f962299"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mcmc_gmst</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N15mcmcVariablesRJ9mcmc_gmstE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15mcmcVariablesRJ12mcmc_max_dimE">
+<span id="_CPPv3N15mcmcVariablesRJ12mcmc_max_dimE"></span><span id="_CPPv2N15mcmcVariablesRJ12mcmc_max_dimE"></span><span id="mcmcVariablesRJ::mcmc_max_dim__i"></span><span class="target" id="structmcmcVariablesRJ_1a12510802cb11d54e1a83a26941991cbb"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mcmc_max_dim</span></span></span><a class="headerlink" href="#_CPPv4N15mcmcVariablesRJ12mcmc_max_dimE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15mcmcVariablesRJ12mcmc_min_dimE">
+<span id="_CPPv3N15mcmcVariablesRJ12mcmc_min_dimE"></span><span id="_CPPv2N15mcmcVariablesRJ12mcmc_min_dimE"></span><span id="mcmcVariablesRJ::mcmc_min_dim__i"></span><span class="target" id="structmcmcVariablesRJ_1ad50caacc4a7242e40bd9f2047baf47e1"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mcmc_min_dim</span></span></span><a class="headerlink" href="#_CPPv4N15mcmcVariablesRJ12mcmc_min_dimE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15mcmcVariablesRJ15mcmc_mod_structE">
+<span id="_CPPv3N15mcmcVariablesRJ15mcmc_mod_structE"></span><span id="_CPPv2N15mcmcVariablesRJ15mcmc_mod_structE"></span><span id="mcmcVariablesRJ::mcmc_mod_struct__MCMC_modification_structP"></span><span class="target" id="structmcmcVariablesRJ_1acbe8993d536469c118d2cbcedcec96d9"></span><a class="reference internal" href="#_CPPv424MCMC_modification_struct" title="MCMC_modification_struct"><span class="n"><span class="pre">MCMC_modification_struct</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">mcmc_mod_struct</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><a class="headerlink" href="#_CPPv4N15mcmcVariablesRJ15mcmc_mod_structE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15mcmcVariablesRJ18mcmc_save_waveformE">
+<span id="_CPPv3N15mcmcVariablesRJ18mcmc_save_waveformE"></span><span id="_CPPv2N15mcmcVariablesRJ18mcmc_save_waveformE"></span><span id="mcmcVariablesRJ::mcmc_save_waveform__b"></span><span class="target" id="structmcmcVariablesRJ_1a8806452b5c49031749f5da892899373a"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mcmc_save_waveform</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><a class="headerlink" href="#_CPPv4N15mcmcVariablesRJ18mcmc_save_waveformE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15mcmcVariablesRJ14mcmc_intrinsicE">
+<span id="_CPPv3N15mcmcVariablesRJ14mcmc_intrinsicE"></span><span id="_CPPv2N15mcmcVariablesRJ14mcmc_intrinsicE"></span><span id="mcmcVariablesRJ::mcmc_intrinsic__b"></span><span class="target" id="structmcmcVariablesRJ_1a0261503cf4777a32a452ec4ad715717b"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mcmc_intrinsic</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><a class="headerlink" href="#_CPPv4N15mcmcVariablesRJ14mcmc_intrinsicE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15mcmcVariablesRJ16mcmc_deriv_orderE">
+<span id="_CPPv3N15mcmcVariablesRJ16mcmc_deriv_orderE"></span><span id="_CPPv2N15mcmcVariablesRJ16mcmc_deriv_orderE"></span><span id="mcmcVariablesRJ::mcmc_deriv_order__i"></span><span class="target" id="structmcmcVariablesRJ_1a957191df1c58b389c3b0d6b3650f40ac"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mcmc_deriv_order</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">4</span></span><a class="headerlink" href="#_CPPv4N15mcmcVariablesRJ16mcmc_deriv_orderE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15mcmcVariablesRJ13mcmc_log_betaE">
+<span id="_CPPv3N15mcmcVariablesRJ13mcmc_log_betaE"></span><span id="_CPPv2N15mcmcVariablesRJ13mcmc_log_betaE"></span><span id="mcmcVariablesRJ::mcmc_log_beta__b"></span><span class="target" id="structmcmcVariablesRJ_1a3753de2ab369120b852990b165e514ca"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mcmc_log_beta</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><a class="headerlink" href="#_CPPv4N15mcmcVariablesRJ13mcmc_log_betaE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15mcmcVariablesRJ15user_parametersE">
+<span id="_CPPv3N15mcmcVariablesRJ15user_parametersE"></span><span id="_CPPv2N15mcmcVariablesRJ15user_parametersE"></span><span id="mcmcVariablesRJ::user_parameters__MCMC_user_paramP"></span><span class="target" id="structmcmcVariablesRJ_1a2a7f4fe9b88f2e638402a7618e7ccea5"></span><a class="reference internal" href="#_CPPv415MCMC_user_param" title="MCMC_user_param"><span class="n"><span class="pre">MCMC_user_param</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">user_parameters</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><a class="headerlink" href="#_CPPv4N15mcmcVariablesRJ15user_parametersE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15mcmcVariablesRJ6maxDimE">
+<span id="_CPPv3N15mcmcVariablesRJ6maxDimE"></span><span id="_CPPv2N15mcmcVariablesRJ6maxDimE"></span><span id="mcmcVariablesRJ::maxDim__i"></span><span class="target" id="structmcmcVariablesRJ_1a9faa76c98c9a6d3e957a6923cec2ebbc"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">maxDim</span></span></span><a class="headerlink" href="#_CPPv4N15mcmcVariablesRJ6maxDimE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N15mcmcVariablesRJ6minDimE">
+<span id="_CPPv3N15mcmcVariablesRJ6minDimE"></span><span id="_CPPv2N15mcmcVariablesRJ6minDimE"></span><span id="mcmcVariablesRJ::minDim__i"></span><span class="target" id="structmcmcVariablesRJ_1a970bfa259a50eaf60a7eff144d77bb20"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">minDim</span></span></span><a class="headerlink" href="#_CPPv4N15mcmcVariablesRJ6minDimE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="mc_reject.html" class="btn btn-neutral float-left" title="mc_reject" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="mcmc_gw_extended.html" class="btn btn-neutral float-right" title="mcmc_gw_extended" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Scott Ellis Perkins.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
