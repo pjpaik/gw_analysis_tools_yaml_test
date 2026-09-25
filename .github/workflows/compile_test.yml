@@ -22,7 +22,7 @@ jobs:
         run: |
           docker build -t gwatubuntu -f gw_analysis_tools/docker_files/Dockerfile.gwatubuntu .
           docker build --target bayes-build -t gwat_dev -f gw_analysis_tools/docker_files/Dockerfile.gwat.bayesship .
-          docker run -it --mount type=bind,source=$GITHUB_WORKSPACE/gw_analysis_tools,target="/opt/gw_analysis_tools" gwat_dev
+          docker run -i --mount type=bind,source=$GITHUB_WORKSPACE/gw_analysis_tools,target="/opt/gw_analysis_tools" gwat_dev
       - name: compile
         run: |
           cd gw_analysis_tools
