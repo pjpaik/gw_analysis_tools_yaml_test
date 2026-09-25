@@ -12,14 +12,20 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          path: gw_analysis_tools
+      - uses: actions/checkout@v4
+        with:
+          repository: bayescollab/BayesShip
+          path: BayesShip
       - name: Set up Container Stuff
         run: |
-          docker build -t gwatubuntu -f docker_files/Dockerfile.gwatubuntu .
-          docker build --target bayes-build -t gwat_dev -f docker_files/Dockerfile.gwat.bayesship .
-          docker run -it --mount type=bind,source=$GITHUB_WORKSPACE,target="/opt/gw_analysis_tools" gwat_dev
-      - name: compile
-        run: |
-          cd build || mkdir build && cd build
-          rm -rf *
-          cmake -DCMAKE_INSTALL_PREFIX=/usr/local ../
-          make -j 4 && make install
+          docker build -t gwatubuntu -f gw_analysis_tools/docker_files/Dockerfile.gwatubuntu .
+          docker build --target bayes-build -t gwat_dev -f gw_analysis_tools/docker_files/Dockerfile.gwat.bayesship .
+          docker run --rm --mount type=bind,source=$GITHUB_WORKSPACE/gw_analysis_tools,target="/opt/gw_analysis_tools" gwat_dev bash -c "
+            cd /opt/gw_analysis_tools && \
+            mkdir -p build && cd build && \
+            rm -rf * && \
+            cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_CXX_FLAGS="-Werror" ../ && \
+            make -j 4 && make install
+          "
