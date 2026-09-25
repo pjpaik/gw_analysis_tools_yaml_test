@@ -29,10 +29,3 @@ jobs:
             cmake -DCMAKE_INSTALL_PREFIX=/usr/local ../ && \
             make -j 4 && make install
           "
-      - name: Post PR comment for warnings/errors
-        if: always()
-        uses: JacobDomagala/CompileResult@master
-        with:
-          comment_title: UBUNTU COMPILE RESULT
-          compile_result_file: build/output.txt
-          compiler: GNU
