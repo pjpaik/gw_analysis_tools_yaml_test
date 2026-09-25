@@ -24,7 +24,7 @@ jobs:
           docker build --target bayes-build -t gwat_dev -f gw_analysis_tools/docker_files/Dockerfile.gwat.bayesship .
           docker run --rm --mount type=bind,source=$GITHUB_WORKSPACE/gw_analysis_tools,target="/opt/gw_analysis_tools" gwat_dev bash -c "
             cd /opt/gw_analysis_tools && \
-            cd build || (mkdir build && cd build) && \
+            mkdir -p build && cd build && \
             rm -rf * && \
             cmake -DCMAKE_INSTALL_PREFIX=/usr/local ../ && \
             make -j 4 && make install
