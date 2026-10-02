@@ -348,7 +348,7 @@ private:
 	{
 		for(auto i =0u; i<numThreads-numSwpSWPThreads-numSwpSWPPThreads; i++)
 		{
-			mThreads.emplace_back([=, this]{
+			mThreads.emplace_back([=]{
 				while(true)
 				{
 					int j;
