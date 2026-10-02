@@ -29,3 +29,4 @@ jobs:
             cmake -DCMAKE_INSTALL_PREFIX=/usr/local ../ && \
             make -j 4 && make install
           "
+          echo "::add-matcher::compile_problem_matcher.json"
