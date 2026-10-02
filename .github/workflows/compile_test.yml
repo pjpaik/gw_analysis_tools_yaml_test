@@ -18,6 +18,10 @@ jobs:
         with:
           repository: bayescollab/BayesShip
           path: BayesShip
+      
+      - name: Problem Matcher
+        run:
+          echo "::add-matcher::$GITHUB_WORKSPACE/gw_analysis_tools/.github/workflows/compile_problem_matcher.json"
       - name: Set up Container and Compile Code
         run: |
           docker build -t gwatubuntu -f gw_analysis_tools/docker_files/Dockerfile.gwatubuntu .
@@ -29,4 +33,4 @@ jobs:
             cmake -DCMAKE_INSTALL_PREFIX=/usr/local ../ && \
             make -j 4 && make install
           "
-          echo "::add-matcher::$GITHUB_WORKSPACE/gw_analysis_tools/.github/workflows/compile_problem_matcher.json"
+          
