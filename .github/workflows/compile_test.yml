@@ -29,4 +29,4 @@ jobs:
             cmake -DCMAKE_INSTALL_PREFIX=/usr/local ../ && \
             make -j 4 && make install
           "
-          echo "::add-matcher::$GITHUB_WORKSPACE/.github/workflows/compile_problem_matcher.json"
+          echo "::add-matcher::$GITHUB_WORKSPACE/gw_analysis_tools/.github/workflows/compile_problem_matcher.json"
