@@ -22,10 +22,11 @@ jobs:
         with:
           repository: bayescollab/GWATDocker
           path: .
-
-      - name: Problem Matcher
+      - name: look
         run:
           ls -la
+      - name: Problem Matcher
+        run:
           echo "::add-matcher::$GITHUB_WORKSPACE/gw_analysis_tools/.github/workflows/compile_problem_matcher.json"
       - name: Set up Container and Compile Code
         run: |
