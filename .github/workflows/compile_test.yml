@@ -13,25 +13,23 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          path: .
+          path: gw_analysis_tools
       - uses: actions/checkout@v4
         with:
           repository: bayescollab/BayesShip
-          path: .
+          path: BayesShip
       - uses: actions/checkout@v4
         with:
           repository: bayescollab/GWATDocker
-          path: .
-      - name: look
-        run:
-          ls -la
+          path: GWATDocker
+
       - name: Problem Matcher
         run:
           echo "::add-matcher::$GITHUB_WORKSPACE/gw_analysis_tools/.github/workflows/compile_problem_matcher.json"
       - name: Set up Container and Compile Code
         run: |
-          docker build -t gwatubuntu -f GWATDocker/Dockerfile.gwatubuntu .
-          docker build --target bayes-build -t gwat_dev -f GWATDocker/Dockerfile.gwat.bayesship .
+          docker build -t gwatubuntu -f $GITHUB_WORKSPACE/GWATDocker/Dockerfile.gwatubuntu .
+          docker build --target bayes-build -t gwat_dev -f $GITHUB_WORKSPACE/GWATDocker/Dockerfile.gwat.bayesship .
           docker run --rm --mount type=bind,source=$GITHUB_WORKSPACE/gw_analysis_tools,target="/opt/gw_analysis_tools" gwat_dev bash -c "
             cd /opt/gw_analysis_tools && \
             mkdir -p build && cd build && \
