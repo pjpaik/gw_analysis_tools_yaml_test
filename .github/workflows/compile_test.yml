@@ -36,5 +36,5 @@ jobs:
             rm -rf * && \
             cmake -DCMAKE_INSTALL_PREFIX=/usr/local ../ && \
             make -j 4 && make install
-          " | sed 's/opt//g'
+          " 2>&1 | sed 's|/opt/||g'
           
