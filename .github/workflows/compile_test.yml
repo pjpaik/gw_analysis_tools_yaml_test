@@ -25,7 +25,7 @@ jobs:
 
       - name: Problem Matcher
         run:
-          ls
+          ls -la
           echo "::add-matcher::$GITHUB_WORKSPACE/gw_analysis_tools/.github/workflows/compile_problem_matcher.json"
       - name: Set up Container and Compile Code
         run: |
