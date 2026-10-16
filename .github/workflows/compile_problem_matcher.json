@@ -4,8 +4,9 @@
             "owner": "BuildTestingYOOOO",
             "pattern": [
                 {
-                    "regexp": "(warning)",
-                    "message": 1
+                    "regexp": "(.+)(warning)",
+                    "file": 1,
+                    "message": 2
                 }
             ]
         }
