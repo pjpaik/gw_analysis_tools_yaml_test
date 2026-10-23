@@ -38,4 +38,13 @@ jobs:
             cmake -DCMAKE_INSTALL_PREFIX=/usr/local ../ && \
             make -j 4 && make install
           " 2>&1 | sed 's|/opt/||g'
-          
+      - name: Check for Annotations
+        env:
+          OWNER: ${{github.repository_owner}}
+          REPO: ${{github.repository}}
+          RUN_ID: ${{github.run_id}}
+        run: |
+          num_annotations = "$(gh api -H "Accept: application/vnd.github+json/repos/$OWNER/$REPO/check-runs/RUN_ID/annotations" --jq 'length > 0')"
+          if $num_annotations > 0; then
+            exit(1)
+          fi
