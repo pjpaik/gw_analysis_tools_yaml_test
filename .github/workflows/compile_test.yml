@@ -41,10 +41,11 @@ jobs:
       - name: Check for Annotations
         env:
           REPO: ${{github.repository}}
-          RUN_ID: ${{job.check_run_id}}
+          RUN_ID: ${{github.run_id}}
           GH_TOKEN: ${{ github.token }}
         run: |
           has_annotations="$(gh api -H "Accept: application/vnd.github+json" "/repos/$REPO/check-runs/$RUN_ID/annotations" --jq 'length > 0')"
+          echo $has_annotations
           if [[ "$has_annotations" = "true" ]]; then
             exit 1
           fi
