@@ -12,14 +12,40 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Container Stuff
+        with:
+          path: gw_analysis_tools
+      - uses: actions/checkout@v4
+        with:
+          repository: bayescollab/BayesShip
+          path: BayesShip
+      - uses: actions/checkout@v4
+        with:
+          repository: bayescollab/GWATDocker
+          path: GWATDocker
+
+      - name: Problem Matcher
+        run:
+          echo "::add-matcher::$GITHUB_WORKSPACE/gw_analysis_tools/.github/workflows/compile_problem_matcher.json"
+      - name: Set up Container and Compile Code
         run: |
-          docker build -t gwatubuntu -f docker_files/Dockerfile.gwatubuntu .
-          docker build --target bayes-build -t gwat_dev -f docker_files/Dockerfile.gwat.bayesship .
-          docker run -it --mount type=bind,source=$GITHUB_WORKSPACE,target="/opt/gw_analysis_tools" gwat_dev
-      - name: compile
+          set -o pipefail
+          docker build -t gwatubuntu -f $GITHUB_WORKSPACE/GWATDocker/Dockerfile.gwatubuntu .
+          docker build --target bayes-build -t gwat_dev -f $GITHUB_WORKSPACE/GWATDocker/Dockerfile.gwat.bayesship .
+          docker run --rm --mount type=bind,source=$GITHUB_WORKSPACE/gw_analysis_tools,target="/opt/gw_analysis_tools" gwat_dev bash -c "
+            cd /opt/gw_analysis_tools && \
+            mkdir -p build && cd build && \
+            rm -rf * && \
+            cmake -DCMAKE_INSTALL_PREFIX=/usr/local ../ && \
+            make -j 4 && make install
+          " 2>&1 | sed 's|/opt/||g'
+      - name: Check for Annotations
+        env:
+          REPO: ${{github.repository}}
+          RUN_ID: ${{job.check_run_id}}
+          GH_TOKEN: ${{ github.token }}
         run: |
-          cd build || mkdir build && cd build
-          rm -rf *
-          cmake -DCMAKE_INSTALL_PREFIX=/usr/local ../
-          make -j 4 && make install
+          has_annotations="$(gh api -H "Accept: application/vnd.github+json" "/repos/$REPO/check-runs/$RUN_ID/annotations" --paginate | jq -s 'length > 0')"
+          echo $has_annotations
+          if [[ "$has_annotations" = "true" ]]; then
+            exit 1
+          fi
