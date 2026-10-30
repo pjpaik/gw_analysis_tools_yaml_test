@@ -44,8 +44,8 @@ jobs:
           RUN_ID: ${{job.check_run_id}}
           GH_TOKEN: ${{ github.token }}
         run: |
-          has_annotations="$(gh api -H "Accept: application/vnd.github+json" "/repos/$REPO/check-runs/$RUN_ID/annotations" --paginate | jq -s 'length > 0')"
+          has_annotations="$(gh api -H "Accept: application/vnd.github+json" "/repos/$REPO/check-runs/$RUN_ID/annotations" --paginate | jq -s 'flatten | length > 0')"
           echo $has_annotations
           if [[ "$has_annotations" = "true" ]]; then
-            gh pr comment 13 --body "Hi from GitHub CLI"
+            gh pr comment "${{ github.event.pull_request.number }}" --body "Hi from GitHub CLI"
           fi
