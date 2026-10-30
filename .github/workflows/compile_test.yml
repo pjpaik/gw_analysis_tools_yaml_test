@@ -47,5 +47,5 @@ jobs:
           has_annotations="$(gh api -H "Accept: application/vnd.github+json" "/repos/$REPO/check-runs/$RUN_ID/annotations" --paginate | jq -s 'length > 0')"
           echo $has_annotations
           if [[ "$has_annotations" = "true" ]]; then
-            echo "#There are compiler warnings that should be reviewed before merging" >> $GITHUB_STEP_SUMMARY
+            gh pr comment 13 --body "Hi from GitHub CLI"
           fi
