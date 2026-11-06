@@ -38,7 +38,7 @@ jobs:
             rm -rf * && \
             cmake -DCMAKE_INSTALL_PREFIX=/usr/local ../ && \
             make -j 4 && make install
-          " 2>&1'
+          " 2>&1
       - name: Check for Annotations
         env:
           REPO: ${{github.repository}}
