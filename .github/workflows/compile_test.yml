@@ -13,14 +13,14 @@ jobs:
       pull-requests: write
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           path: gw_analysis_tools
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           repository: bayescollab/BayesShip
           path: BayesShip
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           repository: bayescollab/GWATDocker
           path: GWATDocker
