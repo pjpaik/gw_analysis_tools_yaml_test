@@ -30,7 +30,6 @@ jobs:
           echo "::add-matcher::$GITHUB_WORKSPACE/gw_analysis_tools/.github/workflows/compile_problem_matcher.json"
       - name: Set up Container and Compile Code
         run: |
-          set -o pipefail
           docker build -t gwatubuntu -f $GITHUB_WORKSPACE/GWATDocker/Dockerfile.gwatubuntu .
           docker build --target bayes-build -t gwat_dev -f $GITHUB_WORKSPACE/GWATDocker/Dockerfile.gwat.bayesship .
           docker run --rm --mount type=bind,source=$GITHUB_WORKSPACE/gw_analysis_tools,target="/opt/gw_analysis_tools" gwat_dev bash -c "
@@ -39,7 +38,7 @@ jobs:
             rm -rf * && \
             cmake -DCMAKE_INSTALL_PREFIX=/usr/local ../ && \
             make -j 4 && make install
-          " 2>&1 | sed 's|/opt/||g'
+          " 2>&1'
       - name: Check for Annotations
         env:
           REPO: ${{github.repository}}
